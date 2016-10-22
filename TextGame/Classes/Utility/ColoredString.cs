@@ -1,5 +1,4 @@
 ﻿// TODO:
-// - Apply gradient method AddGradient(Color4 c1, Color4 c2, bool changeText = false, bool change Background = true);
 
 namespace Game.Utility
 {
@@ -22,6 +21,24 @@ namespace Game.Utility
         public void Insert(int index, ColoredString colString)
         {
             _colChars.InsertRange(index, colString._colChars);
+        }
+
+        public void AddGradient(Color4 c1, Color4 c2, bool changeText = false, bool changeBackground = true)
+        {
+            var numChars = _colChars.Count;
+
+            for (int cnt = 1;  cnt <= _colChars.Count; cnt++) {
+                ColoredChar colCh = _colChars[cnt - 1];
+                var newColor = new Color4(
+                    (c1.R * (1 / cnt)) + (c2.R * (1 / (numChars - cnt))),
+                    (c1.G * (1 / cnt)) + (c2.G * (1 / (numChars - cnt))),
+                    (c1.B * (1 / cnt)) + (c2.B * (1 / (numChars - cnt))),
+                    (c1.A * (1 / cnt)) + (c2.A * (1 / (numChars - cnt)))
+                );
+
+                colCh.TextColor = changeText ? newColor : colCh.TextColor;
+                colCh.BackgroundColor = changeBackground ? newColor : colCh.BackgroundColor;
+            }
         }
 
         public static ColoredString operator +(ColoredString a, ColoredString b)
