@@ -1,21 +1,27 @@
-﻿using OpenTK.Graphics;
-using System.Collections.Generic;
-
-namespace Game.Controls
+﻿namespace Game.Controls
 {
+    using System.Collections.Generic;
+    using Scenes;
+    using OpenTK.Graphics;
+    using System.Drawing;
+
     /// <summary>
     /// Displays a Text inside a Box.
     /// </summary>
     public class TextBox : IControl
     {
+        private Scene _scene;
+
         private string[] _formattedText;
 
-        public TextBox(ExtendedConsoleWindow console, int x, int y, int width, int height, string[] text, string header = "", Appearance? appearance = null, Color4? headerColor = null)
+        public TextBox(Scene scene, int x, int y, int width, int height, string[] text, string header = "", int headerHeight = 3, Appearance? appearance = null, Color4? headerColor = null)
         {
+            _scene = scene;
             Appearance = appearance == null ? DefaultAppearance : (Appearance)appearance;
             HeaderColor = headerColor == null ? Colors.HeaderColor : (Color4)headerColor;
             Text = text;
-            Header = header;
+            HeaderText = header;
+            HeaderHeight = headerHeight;
             X = x;
             Y = y;
             Width = width;
@@ -39,7 +45,7 @@ namespace Game.Controls
             }
         }
 
-        public string Header { get; set; }
+        public string HeaderText { get; set; }
 
         public int X { get; set; }
 
@@ -48,6 +54,8 @@ namespace Game.Controls
         public int Width { get; set; }
 
         public int Height { get; set; }
+
+        public int HeaderHeight { get; set; }
 
         public Appearance Appearance { get; set; }
 
@@ -68,8 +76,25 @@ namespace Game.Controls
 
         public void Draw()
         {
-            if (Header != "") {
+            var topLeft = new Point(X, Y);
+            var bottomRight = new Point(X + Width, Y + Height);
+            var headerBackgroundColor = Colors.Darken(Appearance.BackgroundColor);
+            var contentOffset = 1;
 
+            // Draw the box
+            _scene.Console.FillBox(topLeft, bottomRight, Appearance.BackgroundColor);
+
+            // Draw the header.
+            if (HeaderText != "") {
+                contentOffset += HeaderHeight;
+                _scene.Console.FillBox(topLeft, new Point(X + Width, Y + HeaderHeight), headerBackgroundColor);
+                _scene.Console.Write(Y + HeaderHeight / 2, X + 1, HeaderText);
+            }
+
+            // Draw the content.
+            var cnt = 0;
+            foreach (string line in Text) {
+                _scene.Console.Write(Y + contentOffset + (cnt++), 1, line);
             }
         }
     }
