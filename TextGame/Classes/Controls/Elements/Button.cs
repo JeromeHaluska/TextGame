@@ -2,8 +2,6 @@
 {
     using System;
     using System.Drawing;
-    using System.Linq;
-    using System.Text;
     using OpenTK.Graphics;
     using OpenTK.Input;
     using Scenes;
@@ -22,7 +20,7 @@
 
         private int _height;
 
-        private string _text = string.Empty;
+        private string _text;
         
         private bool _isHovered = false;
 

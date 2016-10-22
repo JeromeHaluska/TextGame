@@ -1,12 +1,12 @@
-﻿// ToDo:
-// - Hovered Event, that gets fired when a element of the selection gets hovered. (To make a dynamic description that appears when hovering)
-
-namespace Game.Controls
+﻿namespace Game.Controls
 {
-    using Scenes;
     using System;
     using System.Collections.Generic;
+    using Scenes;
 
+    /// <summary>
+    /// A selection can be used to choose between different things.
+    /// </summary>
     public class Selection : IControl
     {
         private Scene _scene;
