@@ -6,13 +6,13 @@
 
     public class CharacterCreationScene : Scene
     {
-        private string _hoveredPath = "";
         private Dictionary<string, string[]> _pathToDescription = new Dictionary<string, string[]>();
 
         public CharacterCreationScene(ExtendedConsoleWindow console) : base(console)
         {
             var confirmButton = new Button(this, 1, Console.Rows - 4, 3, "Confirm");
             var pathSelection = new Selection(this, 1, 3, 25, 1, 1);
+            var pathDescriptionBox = new TextBox(this, 36, 0, Console.Cols - 37, Console.Rows - 1, new string[0], "Hover over a path for a description");
 
             // Fill dictionary with descriptions of the different paths.
             _pathToDescription.Add("Brute", new string[] {
@@ -47,7 +47,10 @@
 
             // Update the hovered path if the mouse hovers over a item.
             pathSelection.MouseEnter += (source, args) => {
-                _hoveredPath = args.ItemList[0];
+                var hoveredPath = args.ItemList[0];
+
+                pathDescriptionBox.HeaderText = hoveredPath;
+                pathDescriptionBox.Text = _pathToDescription[hoveredPath];
             };
             
             confirmButton.IsActive = false;
@@ -55,6 +58,7 @@
             // Add controlls to the screen.
             Add(pathSelection);
             Add(confirmButton);
+            Add(pathDescriptionBox);
         }
 
         public override void Draw()
@@ -66,17 +70,6 @@
             base.Draw();
 
             Console.Write(1, 1, "Choose a path", Colors.HeaderColor, null);
-            Console.FillBox(new Point(36, 0), new Point(Console.Cols - 1, Console.Rows - 1), Colors.DarkBackgroundColor);
-
-            // Drawing a description of the currently hovered path.
-            if (_hoveredPath != string.Empty) {
-                var hoveredPathDescription = _pathToDescription[_hoveredPath];
-
-                Console.Write(1, 37, _hoveredPath, Colors.HeaderColor, null);
-                for (int cnt = 0; cnt < hoveredPathDescription.Length; cnt++) {
-                    Console.Write(cnt + 3, 37, hoveredPathDescription[cnt], Colors.TextColor, null);
-                }
-            }
         }
     }
 }

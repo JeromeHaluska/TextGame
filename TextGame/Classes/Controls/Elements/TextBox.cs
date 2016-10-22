@@ -87,14 +87,14 @@
             // Draw the header.
             if (HeaderText != "") {
                 contentOffset += HeaderHeight;
-                _scene.Console.FillBox(topLeft, new Point(X + Width, Y + HeaderHeight), headerBackgroundColor);
-                _scene.Console.Write(Y + HeaderHeight / 2, X + 1, HeaderText);
+                _scene.Console.FillBox(topLeft, new Point(X + Width, Y + HeaderHeight - 1), headerBackgroundColor);
+                _scene.Console.Write(Y + HeaderHeight / 2, X + 1, HeaderText, HeaderColor, null);
             }
 
             // Draw the content.
             var cnt = 0;
             foreach (string line in Text) {
-                _scene.Console.Write(Y + contentOffset + (cnt++), 1, line);
+                _scene.Console.Write(Y + contentOffset + (cnt++), X + 1, line, Appearance.TextColor, null);
             }
         }
     }
