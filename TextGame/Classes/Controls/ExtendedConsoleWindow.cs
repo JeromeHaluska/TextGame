@@ -6,6 +6,7 @@
     using SunshineConsole;
     using System.Drawing;
     using System;
+    using Utility;
 
     public class ExtendedConsoleWindow : ConsoleWindow
     {
@@ -115,6 +116,45 @@
                     }
                     if (backgroundColor != null && bgcolors[row, col + i] != backgroundColor) {
                         bgcolors[row, col + i] = (Color4)backgroundColor;
+                        changed = true;
+                    }
+                    if (changed) {
+                        if (row < first_changed_row) {
+                            first_changed_row = row;
+                        }
+                        if (row > last_changed_row) {
+                            last_changed_row = row;
+                        }
+                        if (col + i < first_changed_col) {
+                            first_changed_col = col + i;
+                        }
+                        if (col + i > last_changed_col) {
+                            last_changed_col = col + i;
+                        }
+                    }
+                }
+                i++;
+            }
+            UpdateGLBuffer();
+        }
+
+        public void Write(int row, int col, ColoredString line)
+        {
+            int i = 0;
+            foreach (ColoredChar ch in line) {
+                if (InBounds(row, col + i)) {
+                    bool changed = false;
+
+                    if (chars[row, col + i] != ch.Value) {
+                        chars[row, col + i] = ch.Value;
+                        changed = true;
+                    }
+                    if (colors[row, col + i] != ch.TextColor) {
+                        colors[row, col + i] = ch.TextColor;
+                        changed = true;
+                    }
+                    if (bgcolors[row, col + i] != ch.BackgroundColor) {
+                        bgcolors[row, col + i] = ch.BackgroundColor;
                         changed = true;
                     }
                     if (changed) {
