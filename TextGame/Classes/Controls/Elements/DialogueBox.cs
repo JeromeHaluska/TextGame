@@ -17,7 +17,7 @@
 
         private List<string> _lines = new List<string>();
         
-        public DialogueBox(Scene scene, int x, int y, int width, int height, Color4 textColor, Color4 backgroundColor)
+        public DialogueBox(Scene scene, int x, int y, int width, int height, Color4 textColor, Color4? backgroundColor = null)
         {
             _scene = scene;
             Height = height;
@@ -92,7 +92,7 @@
         /// <summary>
         /// Gets or sets the background color.
         /// </summary>
-        public Color4 BackgroundColor { get; set; }
+        public Color4? BackgroundColor { get; set; }
 
         /// <summary>
         /// Adds a line to the dialogue box and pushes older lines to the top.
