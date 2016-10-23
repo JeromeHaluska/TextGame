@@ -26,7 +26,7 @@
             double numChars = _colChars.Count;
 
             for (int cnt = 1;  cnt <= _colChars.Count; cnt++) {
-                ColoredChar colCh = _colChars[cnt - 1];
+                ColoredChar oldColCh = _colChars[cnt - 1];
 
                 // Generate the gradient at the current index.
                 double amount = 1 - cnt / numChars;
@@ -36,8 +36,11 @@
                 var newColor = new Color4(r, g, b, 1);
 
                 // Apply the new color.
-                colCh.TextColor = changeText ? newColor : colCh.TextColor;
-                colCh.BackgroundColor = changeBackground ? newColor : colCh.BackgroundColor;
+                _colChars[cnt - 1] = new ColoredChar(
+                    oldColCh.Value,
+                    changeText ? newColor : oldColCh.TextColor,
+                    changeBackground ? newColor : oldColCh.BackgroundColor
+                );
             }
         }
 
@@ -55,7 +58,7 @@
     /// <summary>
     /// A colored string contains one or more colored char. Its the base of the colored string.
     /// </summary>
-    public class ColoredChar
+    public struct ColoredChar
     {
         public char Value;
 
