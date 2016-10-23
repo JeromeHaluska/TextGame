@@ -74,6 +74,7 @@
     <Compile Include="Classes\Controls\Elements\DialogueBox.cs" />
     <Compile Include="Classes\Controls\Elements\Selection.cs" />
     <Compile Include="Classes\Controls\Elements\TextBox.cs" />
+    <Compile Include="Classes\Scenes\GradientScene.cs" />
     <Compile Include="Classes\Scenes\CharacterCreationScene.cs" />
     <Compile Include="Classes\Scenes\Scene.cs" />
     <Compile Include="Classes\Scenes\MainMenuScene.cs" />
