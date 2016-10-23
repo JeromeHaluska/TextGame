@@ -82,6 +82,7 @@
     <Compile Include="Classes\Controls\Bounds.cs" />
     <Compile Include="Classes\Controls\Elements\Button.cs" />
     <Compile Include="Classes\Controls\IControl.cs" />
+    <Compile Include="Classes\Utility\ColoredString.cs" />
     <Compile Include="Classes\Utility\Colors.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
