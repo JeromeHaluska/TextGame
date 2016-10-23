@@ -12,12 +12,19 @@ Without this decision I wouldn't be able to make any progress, and the simple st
 * [Sunshine Console](https://github.com/derrickcreamer/SunshineConsole)
 
 #### Screenshots
-![Image of the main menu](http://stoaser.bplaced.net/asciigame/scr1.png "Look at those buttons!")  
+![Image of the main menu](http://stoaser.bplaced.net/asciigame/scrMainMenu.png "Look at those buttons!")  
 The Main Menu, where I currently test control elements!  
 The Buttons you see can have different states like disabled and hovered,  
 which have their own appearance (see the "Options" or "Exit" buttons).
 You can also see a dialogue box on the right, and a selection in the middle.
 With all those elements I can easly create new Screens.
+
+![Gradients in action](http://stoaser.bplaced.net/asciigame/scrGradients.png "Look at those gradients!")  
+Here is a new feature that I implemented recently.
+You can create strings and give them a gradient as text or background color.
+```c#
+ColoredString.AddGradient(color1, color2, changeText, changeBackground);
+```
 
 #### Code Examples
 Creating a button:
@@ -46,6 +53,16 @@ selection.AddItem("Item 3");
 // Subscribing a handler to the Valid event that gets fired when the selection is valid.
 selection.Valid += (source, args) => {
   Console.Write(0, 0, "The selection is valid!");
+};
+
+// Subscribing a handler to the MouseEnter event that gets fired when the mouse hovers over a item.
+pathSelection.MouseEnter += (source, args) => {
+    // args.ItemList is a list of event relevant strings.
+    // In this case the hovered item text is at the first position of the list.
+    // In the Valid event the list holds the text of every selected item.
+    var hoveredItemText = args.ItemList[0];
+    
+    Console.Write(0, 0, "The item '" + hoveredItemText + "' is currently hovered.");
 };
 
 // Adding the selection to the screen.
