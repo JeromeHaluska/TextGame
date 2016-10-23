@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using Controls;
-    using System.Drawing;
 
     public class CharacterCreationScene : Scene
     {
