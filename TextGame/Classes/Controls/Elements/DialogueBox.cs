@@ -9,10 +9,6 @@
     {
         private Scene _scene;
 
-        private int _x = 0;
-
-        private int _y = 0;
-
         private int _height = 0;
 
         private List<string> _lines = new List<string>();
@@ -31,34 +27,12 @@
         /// <summary>
         /// Gets or sets the x-position.
         /// </summary>
-        public int X
-        {
-            get
-            {
-                return _x;
-            }
-
-            set
-            {
-                _x = Math.Max(value, 0);
-            }
-        }
+        public int X { get; set; }
 
         /// <summary>
         /// Gets or sets the y-position.
         /// </summary>
-        public int Y
-        {
-            get
-            {
-                return _y;
-            }
-
-            set
-            {
-                _y = Math.Max(value, 0);
-            }
-        }
+        public int Y { get; set; }
 
         /// <summary>
         /// Gets or sets the height.
@@ -100,6 +74,17 @@
         /// <param name="line">A short line of text</param>
         public void Write(string line)
         {
+            while (line.Length > Width) {
+                // Cut off the line if its length is greater then the dialogue box width.
+                var shortenedLine = line.Substring(0, Width);
+
+                // Add the shortened line to the dialogue box output.
+                _lines.Add(shortenedLine);
+
+                // Get the rest of the line.
+                line = line.Substring(Width);
+            }
+
             _lines.Add(line);
         }
 
@@ -113,9 +98,8 @@
 
             for (int cnt = cntStart; cnt < _lines.Count; cnt++) {
                 var curLine = _lines[cnt];
-                var shortenedLine = curLine.Substring(0, Math.Min(Width, curLine.Length));
 
-                _scene.Console.Write(Y + cnt - cntStart, X, shortenedLine, TextColor, BackgroundColor);
+                _scene.Console.Write(Y + cnt - cntStart, X, curLine, TextColor, BackgroundColor);
             }
         }
     }
