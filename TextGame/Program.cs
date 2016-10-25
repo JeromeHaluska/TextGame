@@ -10,7 +10,7 @@
             var activeConsole = new ExtendedConsoleWindow(25, 80, "Gloria");
 
             //activeConsole.ActiveScene = new MainMenuScene(activeConsole);
-            activeConsole.ActiveScene = new GradientScene(activeConsole);
+            activeConsole.ActiveScene = new MainMenuScene(activeConsole);
 
             // Main game loop
             while (activeConsole.WindowUpdate()) {
