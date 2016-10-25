@@ -37,21 +37,7 @@
         /// <summary>
         /// Gets or sets the height.
         /// </summary>
-        public int Height
-        {
-            get
-            {
-                return _height;
-            }
-
-            set
-            {
-                _height = value;
-                while (_lines.Count < _height) {
-                    _lines.Insert(0, string.Empty);
-                }
-            }
-        }
+        public int Height { get; set; }
 
         /// <summary>
         /// Gets or sets the width.
@@ -94,12 +80,10 @@
         /// </summary>
         public void Draw()
         {
-            var cntStart = _lines.Count - Height;
-
-            for (int cnt = cntStart; cnt < _lines.Count; cnt++) {
+            for (int cnt = 0; cnt < _lines.Count; cnt++) {
                 var curLine = _lines[cnt];
 
-                _scene.Console.Write(Y + cnt - cntStart, X, curLine, TextColor, BackgroundColor);
+                _scene.Console.Write(Y + cnt, X, curLine, TextColor, BackgroundColor);
             }
         }
     }
