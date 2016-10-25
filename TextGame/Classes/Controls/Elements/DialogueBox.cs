@@ -4,10 +4,13 @@
     using System.Collections.Generic;
     using OpenTK.Graphics;
     using Scenes;
+    using System.Threading.Tasks;
 
     public class DialogueBox : IControl
     {
         private Scene _scene;
+
+        private int _delay;
 
         private int _height = 0;
 
@@ -23,6 +26,11 @@
             TextColor = textColor;
             BackgroundColor = backgroundColor;
         }
+
+        /// <summary>
+        /// The delay between each letter when using <see cref="WriteSlow(string)"/> in ms. Default is 50ms.
+        /// </summary>
+        public static int Delay { get; set; } = 50;
 
         /// <summary>
         /// Gets or sets the x-position.
@@ -55,10 +63,10 @@
         public Color4? BackgroundColor { get; set; }
 
         /// <summary>
-        /// Adds a line to the dialogue box and pushes older lines to the top.
+        /// Adds a string to the dialogue box and splits it into seperate lines if its longer then <see cref="Width"/>.
         /// </summary>
         /// <param name="line">A short line of text</param>
-        public void Write(string line)
+        public void WriteLine(string line)
         {
             while (line.Length > Width) {
                 // Cut off the line if its length is greater then the dialogue box width.
@@ -72,6 +80,37 @@
             }
 
             _lines.Add(line);
+        }
+
+        public void WriteLine(char ch) { WriteLine(ch.ToString()); }
+
+        public void Write(string line)
+        {
+            foreach (char ch in line) {
+                Write(ch);
+            }
+        }
+
+        public void Write(char ch)
+        {
+            if (_lines.Count != 0 && _lines[_lines.Count - 1].Length < Width) {
+                _lines[_lines.Count - 1] += ch;
+            } else {
+                _lines.Add(ch.ToString());
+            }
+        }
+
+        public async void WriteSlow(string line)
+        {
+            foreach (char ch in line) {
+                await AddLetter(ch);
+            }
+        }
+
+        private async Task AddLetter(char ch)
+        {
+            await Task.Delay(Delay);
+            Write(ch);
         }
 
         /// <summary>
