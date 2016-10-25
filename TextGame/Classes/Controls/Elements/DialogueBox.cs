@@ -96,7 +96,16 @@
             if (_lines.Count != 0 && _lines[_lines.Count - 1].Length < Width) {
                 _lines[_lines.Count - 1] += ch;
             } else {
-                _lines.Add(ch.ToString());
+                // If the current char is a whitespace skip it, and use the next char to start a new line.
+                // This isn't necessary for the functionality of the DialogueBox, its of cosmetical nature.
+                if (ch != ' ') {
+                    // Removes the first line if the number of exsisting lines exceeds the height of the DialogueBox.
+                    if (_lines.Count == Height) {
+                        _lines.RemoveAt(0);
+                    }
+
+                    _lines.Add(ch.ToString());
+                }
             }
         }
 
