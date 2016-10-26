@@ -149,12 +149,12 @@
                         chars[row, col + i] = ch.Value;
                         changed = true;
                     }
-                    if (colors[row, col + i] != ch.TextColor) {
-                        colors[row, col + i] = ch.TextColor;
+                    if (ch.TextColor != null && colors[row, col + i] != ch.TextColor) {
+                        colors[row, col + i] = (Color4)ch.TextColor;
                         changed = true;
                     }
-                    if (bgcolors[row, col + i] != ch.BackgroundColor) {
-                        bgcolors[row, col + i] = ch.BackgroundColor;
+                    if (ch.BackgroundColor != null && bgcolors[row, col + i] != ch.BackgroundColor) {
+                        bgcolors[row, col + i] = (Color4)ch.BackgroundColor;
                         changed = true;
                     }
                     if (changed) {
