@@ -1,33 +1,37 @@
-﻿// TODO:
-// - Remove Write method and rename WriteSlow to Write, to make the intent of this element clearer and prevent missusing it.
-// - Support colored string.
-
-namespace Game.Controls
+﻿namespace Game.Controls
 {
-    using System;
     using System.Threading.Tasks;
     using System.Collections.Generic;
     using OpenTK.Graphics;
     using Scenes;
+    using Utility;
 
     public class DialogueBox : IControl
     {
         private Scene _scene;
 
-        private List<string> _writeQueue = new List<string>();
+        private List<ColoredString> _writeQueue = new List<ColoredString>();
 
-        private List<string> _lines = new List<string>();
+        private List<ColoredString> _lines = new List<ColoredString>();
         
-        public DialogueBox(Scene scene, int x, int y, int width, int height, Color4 textColor, Color4? backgroundColor = null)
+        public DialogueBox(Scene scene, int x, int y, int width, int height)
         {
             _scene = scene;
             Height = height;
             Width = width;
             X = x;
             Y = y;
-            TextColor = textColor;
-            BackgroundColor = backgroundColor;
         }
+
+        /// <summary>
+        /// Gets or sets the default text color.
+        /// </summary>
+        public static Color4 TextColor { get; set; } = Colors.TextColor;
+
+        /// <summary>
+        /// Gets or sets the background color.
+        /// </summary>
+        public static Color4? BackgroundColor { get; set; }
 
         /// <summary>
         /// The delay between each letter when using <see cref="WriteSlow(string)"/> in ms. Default is 50ms.
@@ -54,16 +58,6 @@ namespace Game.Controls
         /// </summary>
         public int Width { get; set; }
 
-        /// <summary>
-        /// Gets or sets the text color.
-        /// </summary>
-        public Color4 TextColor { get; set; }
-
-        /// <summary>
-        /// Gets or sets the background color.
-        /// </summary>
-        public Color4? BackgroundColor { get; set; }
-
         /* Deprecated
         /// <summary>
         /// Adds a string to the dialogue box and splits it into seperate lines if its longer then <see cref="Width"/>.
@@ -86,7 +80,6 @@ namespace Game.Controls
         }
 
         public void WriteLine(char ch) { WriteLine(ch.ToString()); }
-        */
 
         public void Write(string line)
         {
@@ -94,26 +87,9 @@ namespace Game.Controls
                 Write(ch);
             }
         }
+        */
 
-        public void Write(char ch)
-        {
-            if (_lines.Count != 0 && _lines[_lines.Count - 1].Length < Width) {
-                _lines[_lines.Count - 1] += ch;
-            } else {
-                // If the current char is a whitespace skip it, and use the next char to start a new line.
-                // This isn't necessary for the functionality of the DialogueBox, its of cosmetical nature.
-                if (ch != ' ') {
-                    // Removes the first line if the number of exsisting lines exceeds the height of the DialogueBox.
-                    if (_lines.Count == Height) {
-                        _lines.RemoveAt(0);
-                    }
-
-                    _lines.Add(ch.ToString());
-                }
-            }
-        }
-
-        public async void WriteSlow(string newLine)
+        public async void Write(ColoredString newLine)
         {
             _writeQueue.Add(newLine);
 
@@ -121,11 +97,29 @@ namespace Game.Controls
                 while (_writeQueue.Count != 0) {
                     var line = _writeQueue[0];
 
-                    foreach (char ch in line) {
+                    foreach (ColoredChar ch in line) {
                         await Task.Delay(Delay);
-                        Write(ch);
+                        AddLetter(ch);
                     }
                     _writeQueue.RemoveAt(0);
+                }
+            }
+        }
+
+        private void AddLetter(ColoredChar colCh)
+        {
+            if (_lines.Count != 0 && _lines[_lines.Count - 1].Length < Width) {
+                _lines[_lines.Count - 1] += colCh;
+            } else {
+                // If the current char is a whitespace skip it, and use the next char to start a new line.
+                // This isn't necessary for the functionality of the DialogueBox, its of cosmetical nature.
+                if (colCh.Value != ' ') {
+                    // Removes the first line if the number of exsisting lines exceeds the height of the DialogueBox.
+                    if (_lines.Count == Height) {
+                        _lines.RemoveAt(0);
+                    }
+
+                    _lines.Add(colCh);
                 }
             }
         }
@@ -139,7 +133,7 @@ namespace Game.Controls
             for (int cnt = 0; cnt < _lines.Count; cnt++) {
                 var curLine = _lines[cnt];
 
-                _scene.Console.Write(Y + cnt, X, curLine, TextColor, BackgroundColor);
+                _scene.Console.Write(Y + cnt, X, curLine);
             }
         }
     }
