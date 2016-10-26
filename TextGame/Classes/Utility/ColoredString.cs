@@ -71,6 +71,12 @@
             return a;
         }
 
+        public ColoredChar this[int i]
+        {
+            get { return _colChars[i]; }
+            set { _colChars[i] = value; }
+        }
+
         public IEnumerator<ColoredChar> GetEnumerator() { return _colChars.GetEnumerator(); }
         
         IEnumerator IEnumerable.GetEnumerator() { return GetEnumerator(); }
