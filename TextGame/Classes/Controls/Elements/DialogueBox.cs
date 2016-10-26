@@ -1,4 +1,8 @@
-﻿namespace Game.Controls
+﻿// TODO:
+// - Remove Write method and rename WriteSlow to Write, to make the intent of this element clearer and prevent missusing it.
+// - Support colored string.
+
+namespace Game.Controls
 {
     using System.Collections.Generic;
     using OpenTK.Graphics;
@@ -61,6 +65,7 @@
         /// </summary>
         public Color4? BackgroundColor { get; set; }
 
+        /* Deprecated
         /// <summary>
         /// Adds a string to the dialogue box and splits it into seperate lines if its longer then <see cref="Width"/>.
         /// </summary>
@@ -82,6 +87,7 @@
         }
 
         public void WriteLine(char ch) { WriteLine(ch.ToString()); }
+        
 
         public void Write(string line)
         {
@@ -89,6 +95,7 @@
                 Write(ch);
             }
         }
+        */
 
         public void Write(char ch)
         {
