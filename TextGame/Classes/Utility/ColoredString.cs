@@ -8,13 +8,23 @@
     {
         private List<ColoredChar> _colChars = new List<ColoredChar>();
 
-        public ColoredString(string line, Color4 textColor, Color4 backgroundColor)
+        public ColoredString(string line, Color4? textColor = null, Color4? backgroundColor = null)
         {
             // TODO: Check if creating a list (or array) and use at the and List.AddRange at the end is faster.
             foreach(char ch in line) {
                 _colChars.Add(new ColoredChar(ch, textColor, backgroundColor));
             }
         }
+
+        public ColoredString(ColoredChar colChar)
+        {
+            _colChars.Add(colChar);
+        }
+
+        /// <summary>
+        /// Returns the length of the colored string.
+        /// </summary>
+        public int Length { get { return _colChars.Count; } }
 
         public void Insert(int index, ColoredString colString)
         {
@@ -44,9 +54,20 @@
             }
         }
 
+        public static implicit operator ColoredString(ColoredChar a)
+        {
+            return new ColoredString(a);
+        }
+
         public static ColoredString operator +(ColoredString a, ColoredString b)
         {
             a._colChars.AddRange(b._colChars);
+            return a;
+        }
+
+        public static ColoredString operator +(ColoredString a, ColoredChar b)
+        {
+            a._colChars.Add(b);
             return a;
         }
 
@@ -62,11 +83,11 @@
     {
         public char Value;
 
-        public Color4 TextColor;
+        public Color4? TextColor;
 
-        public Color4 BackgroundColor;
+        public Color4? BackgroundColor;
 
-        public ColoredChar(char value, Color4 textColor, Color4 backgroundColor)
+        public ColoredChar(char value, Color4? textColor = null, Color4? backgroundColor = null)
         {
             Value = value;
             TextColor = textColor;
