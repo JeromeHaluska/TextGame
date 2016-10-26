@@ -4,18 +4,17 @@
 
 namespace Game.Controls
 {
+    using System;
+    using System.Threading.Tasks;
     using System.Collections.Generic;
     using OpenTK.Graphics;
     using Scenes;
-    using System.Threading.Tasks;
 
     public class DialogueBox : IControl
     {
         private Scene _scene;
 
-        private int _delay;
-
-        private int _height = 0;
+        private List<string> _writeQueue = new List<string>();
 
         private List<string> _lines = new List<string>();
         
@@ -87,7 +86,7 @@ namespace Game.Controls
         }
 
         public void WriteLine(char ch) { WriteLine(ch.ToString()); }
-        
+        */
 
         public void Write(string line)
         {
@@ -95,7 +94,6 @@ namespace Game.Controls
                 Write(ch);
             }
         }
-        */
 
         public void Write(char ch)
         {
@@ -115,17 +113,21 @@ namespace Game.Controls
             }
         }
 
-        public async void WriteSlow(string line)
+        public async void WriteSlow(string newLine)
         {
-            foreach (char ch in line) {
-                await AddLetter(ch);
-            }
-        }
+            _writeQueue.Add(newLine);
 
-        private async Task AddLetter(char ch)
-        {
-            await Task.Delay(Delay);
-            Write(ch);
+            if (_writeQueue.Count == 1) {
+                while (_writeQueue.Count != 0) {
+                    var line = _writeQueue[0];
+
+                    foreach (char ch in line) {
+                        await Task.Delay(Delay);
+                        Write(ch);
+                    }
+                    _writeQueue.RemoveAt(0);
+                }
+            }
         }
 
         /// <summary>
