@@ -141,7 +141,8 @@
         public void Write(int row, int col, ColoredString line)
         {
             int i = 0;
-            foreach (ColoredChar ch in line) {
+            for (int cnt = 0; cnt < line.Length; cnt++) {
+                var ch = line[cnt];
                 if (InBounds(row, col + i)) {
                     bool changed = false;
 
