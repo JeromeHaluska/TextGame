@@ -1,6 +1,5 @@
 ﻿namespace Game.Controls
 {
-    using System;
     using System.Collections.Generic;
     using OpenTK.Graphics;
     using Scenes;
