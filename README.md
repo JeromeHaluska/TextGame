@@ -26,6 +26,11 @@ You can create strings and give them a gradient as text or background color.
 ColoredString.AddGradient(color1, color2, changeText, changeBackground);
 ```
 
+![Dialogue Box](http://stoaser.bplaced.net/asciigame/scrDialogueBox.png "Taste the rainbow!")  
+The Dialogue Box supports colored strings,
+and prints now letter by letter with a delay between them.
+This delay can be set to any ammount and can possibly be choosen later in the options.
+
 #### Code Examples
 Creating a button:
 ```c#
