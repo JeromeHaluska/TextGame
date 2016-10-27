@@ -41,7 +41,7 @@
             Add(button4);
 
             // Rainbow Text with Dialogue Box.
-            DialogueBox.Delay = 1;
+            DialogueBox.Delay = 10;
             var dBox = new DialogueBox(this, 18, 1, 61, 23);
             var colString = new ColoredString("");
             var gradientColString = new ColoredString("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.");

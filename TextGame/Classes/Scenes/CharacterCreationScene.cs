@@ -15,13 +15,15 @@
 
             // Fill dictionary with descriptions of the different paths.
             _pathToDescription.Add("Brute", new string[] {
-                "The brute is a fierce fighter.",
-                "He has no interrest in magic.",
-                "His attacks are relatively imprecise",
-                "BUT fatal! His uncontrollable anger",
-                "brings enemies to shiver in fear.",
-                "His thick, leathery skin",
-                "helps him to stay on his foot."
+                "The brute is a fierce fighter. " +
+                "He has no interrest in magic. " +
+                "His attacks are relatively imprecise " +
+                "BUT fatal! His uncontrollable anger " +
+                "brings enemies to shiver in fear. " +
+                "His thick, leathery skin " +
+                "helps him to stay on his foot. ",
+                "",
+                "This should be a new paragraph!"
             });
             _pathToDescription.Add("Gravedigger", new string[] {
                 "... (he doesn't talk much)",
@@ -49,7 +51,7 @@
                 var hoveredPath = args.ItemList[0];
 
                 pathDescriptionBox.HeaderText = hoveredPath;
-                pathDescriptionBox.Text = _pathToDescription[hoveredPath];
+                pathDescriptionBox.FormatText(_pathToDescription[hoveredPath]);
             };
             
             confirmButton.IsActive = false;
