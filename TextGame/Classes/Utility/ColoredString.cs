@@ -21,10 +21,38 @@
             _colChars.Add(colChar);
         }
 
+        public ColoredString() {}
+
         /// <summary>
         /// Returns the length of the colored string.
         /// </summary>
         public int Length { get { return _colChars.Count; } }
+
+        /// <return>
+        /// Returns a part of this colored string.
+        /// </return>
+        public ColoredString Substring(int startIndex, int length = 0)
+        {
+            var shortenedColString = new ColoredString();
+            var stopIndex = length > 0 ? length : _colChars.Count;
+
+            for (int cnt = startIndex; cnt < stopIndex; cnt++) {
+                shortenedColString += _colChars[cnt];
+            }
+
+            return shortenedColString;
+        }
+
+        public static ColoredString[] ToArray(string[] lines, Color4? textColor = null, Color4? backgroundColor = null)
+        {
+            var outputArray = new ColoredString[lines.Length];
+
+            for (int cnt = 0; cnt < outputArray.Length; cnt++) {
+                outputArray[cnt] = new ColoredString(lines[cnt], textColor, backgroundColor);
+            }
+
+            return outputArray;
+        }
 
         public void Insert(int index, ColoredString colString)
         {
