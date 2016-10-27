@@ -4,6 +4,7 @@
     using Scenes;
     using OpenTK.Graphics;
     using System.Drawing;
+    using Utility;
 
     /// <summary>
     /// Displays a Text inside a Box.
@@ -12,14 +13,14 @@
     {
         private Scene _scene;
 
-        private string[] _formattedText;
+        private ColoredString[] _formattedText;
 
-        public TextBox(Scene scene, int x, int y, int width, int height, string[] text, string header = "", int headerHeight = 3, Appearance? appearance = null, Color4? headerColor = null)
+        public TextBox(Scene scene, int x, int y, int width, int height, string[] lines, string header = "", int headerHeight = 3, Appearance? appearance = null, Color4? headerColor = null)
         {
             _scene = scene;
             Appearance = appearance == null ? DefaultAppearance : (Appearance)appearance;
             HeaderColor = headerColor == null ? Colors.HeaderColor : (Color4)headerColor;
-            Text = text;
+            FormatText(ColoredString.ToArray(lines));
             HeaderText = header;
             HeaderHeight = headerHeight;
             X = x;
@@ -32,18 +33,6 @@
         /// Gets or sets the default appearance of a <see cref="TextBox"/>.
         /// </summary>
         public static Appearance DefaultAppearance { get; set; } = new Appearance(Colors.TextColor, Colors.DarkBackgroundColor);
-
-        public string[] Text {
-            get
-            {
-                return _formattedText;
-            }
-
-            set
-            {
-                _formattedText = Format(value);
-            }
-        }
 
         public string HeaderText { get; set; }
 
@@ -66,27 +55,42 @@
         /// </summary>
         /// <param name="inputText">The text that gets formatted</param>
         /// <returns></returns>
-        private string[] Format(string[] inputText)
+        public void FormatText(ColoredString[] inputText)
         {
-            var outputText = new List<string>();
+            var outputText = new List<ColoredString>();
 
             // Make sure that every line is inside the text box.
             for (int cnt = 0; cnt < inputText.Length; cnt++) {
-                var line = inputText[cnt];
+                var colString = inputText[cnt];
 
-                while (line.Length > Width - 2) {
+                while (colString.Length > Width - 2) {
+                    int wordOffset;
+
+                    // Check if a word gets cut of and determine the index before the word, to prevent cutting it of.
+                    for (wordOffset = 0; Width - 1 - wordOffset >= 0; wordOffset++) {
+                        var colChar = colString[Width - 1 - wordOffset - 1];
+                        
+                        if (colChar.Value == ' ') {
+                            break;
+                        }
+                    }
+
                     // Get the part of the current line that gets not cut off.
-                    var shortenedLine = line.Substring(0, Width - 2);
-
-                    outputText.Add(shortenedLine);
+                    var shortenedColString = colString.Substring(0, Width - 1 - wordOffset);
+                    outputText.Add(shortenedColString);
 
                     // Get the part that got cut off.
-                    line = line.Substring(Width - 2);
+                    colString = colString.Substring(Width - 1 - wordOffset);
                 }
-                outputText.Add(line);
+                outputText.Add(colString);
             }
 
-            return outputText.ToArray();
+            _formattedText = outputText.ToArray();
+        }
+
+        public void FormatText(string[] inputText)
+        {
+            FormatText(ColoredString.ToArray(inputText, DefaultAppearance.TextColor, DefaultAppearance.BackgroundColor));
         }
 
         public void Draw()
@@ -108,8 +112,8 @@
 
             // Draw the content.
             var cnt = 0;
-            foreach (string line in Text) {
-                _scene.Console.Write(Y + contentOffset + (cnt++), X + 1, line, Appearance.TextColor, null);
+            foreach (ColoredString line in _formattedText) {
+                _scene.Console.Write(Y + contentOffset + (cnt++), X + 1, line);
             }
         }
     }
