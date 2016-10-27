@@ -70,7 +70,22 @@
         {
             var outputText = new List<string>();
 
-            outputText.AddRange(inputText);
+            // Make sure that every line is inside the text box.
+            for (int cnt = 0; cnt < inputText.Length; cnt++) {
+                var line = inputText[cnt];
+
+                while (line.Length > Width - 2) {
+                    // Get the part of the current line that gets not cut off.
+                    var shortenedLine = line.Substring(0, Width - 2);
+
+                    outputText.Add(shortenedLine);
+
+                    // Get the part that got cut off.
+                    line = line.Substring(Width - 2);
+                }
+                outputText.Add(line);
+            }
+
             return outputText.ToArray();
         }
 
