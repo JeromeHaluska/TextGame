@@ -47,19 +47,14 @@
             var gradientColString = new ColoredString("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.");
             for (int cnt = 0; cnt < 10; cnt++) {
                 gradientColString.AddGradient(Color4.Yellow, Color4.Green, true);
-                gradientColString.AddGradient(Colors.Darken(Color4.Yellow), Colors.Darken(Color4.Green), false, true);
                 colString += gradientColString;
                 gradientColString.AddGradient(Color4.Green, Color4.Blue, true);
-                gradientColString.AddGradient(Colors.Darken(Color4.Green), Colors.Darken(Color4.Blue), false, true);
                 colString += gradientColString;
                 gradientColString.AddGradient(Color4.Blue, Color4.Violet, true);
-                gradientColString.AddGradient(Colors.Darken(Color4.Blue), Colors.Darken(Color4.Violet), false, true);
                 colString += gradientColString;
                 gradientColString.AddGradient(Color4.Violet, Color4.Red, true);
-                gradientColString.AddGradient(Colors.Darken(Color4.Violet), Colors.Darken(Color4.Red), false, true);
                 colString += gradientColString;
                 gradientColString.AddGradient(Color4.Red, Color4.Yellow, true);
-                gradientColString.AddGradient(Colors.Darken(Color4.Red), Colors.Darken(Color4.Yellow), false, true);
                 colString += gradientColString;
             }
             dBox.Write(colString);
