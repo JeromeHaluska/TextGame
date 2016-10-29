@@ -25,7 +25,7 @@
 
         private int _selectedItems;
 
-        public Selection(Scene scene, int x, int y, int fixedWidth = 0, int minSelectedItems = 1, int maxSelectedItems = 1, Appearance? appearance = null)
+        public Selection(Scene scene, int x, int y, int fixedWidth = 0, int minSelectedItems = 1, int maxSelectedItems = 1)
         {
             _scene = scene;
             X = x;
@@ -33,7 +33,6 @@
             FixedWidth = fixedWidth;
             MinSelectedItems = minSelectedItems;
             MaxSelectedItems = maxSelectedItems;
-            Appearance = appearance == null ? DefaultAppearance : (Appearance)appearance;
         }
 
         public delegate void SelectionEventHandler(object source, SelectionEventArgs args);
@@ -52,11 +51,6 @@
         /// Fired when the mouse enters the selection. Returns the item that is hovered.
         /// </summary>
         public event SelectionEventHandler MouseEnter;
-
-        /// <summary>
-        /// Gets or sets the default appearance of a <see cref="Selection"/>.
-        /// </summary>
-        public static Appearance DefaultAppearance { get; set; } = new Appearance(Colors.TextColor, Colors.BackgroundColor);
 
         public int X
         {
@@ -136,18 +130,13 @@
         }
 
         /// <summary>
-        /// Gets the appearance of the selection.
-        /// </summary>
-        public Appearance Appearance { get; private set; }
-
-        /// <summary>
         /// Gets the state of the selection. Returns true if the minimum and maximum selection requirement is fulfilled.
         /// </summary>
         public bool IsValid { get; private set; } = false;
 
         public void AddItem(string text)
         {
-            var newButton = new Button(_scene, X, Y + _buttonList.Count, 1, text, Appearance);
+            var newButton = new Button(_scene, X, Y + _buttonList.Count, 1, text);
 
             // Subscribing to the button Click event.
             newButton.Click += (source, args) => {

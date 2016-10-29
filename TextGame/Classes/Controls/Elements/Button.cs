@@ -2,9 +2,9 @@
 {
     using System;
     using System.Drawing;
-    using OpenTK.Graphics;
     using OpenTK.Input;
     using Scenes;
+    using Default;
 
     public class Button : IControl
     {
@@ -32,15 +32,13 @@
         /// <param name="y">Button y-position.</param>
         /// <param name="height">Button height.</param>
         /// <param name="text">The displayed text on the button.</param>
-        /// <param name="appearance">Button appearance. <see cref="DefaultAppearance"/> is used if null</param>
-        public Button(Scene scene, int x, int y, int height, string text, Appearance? appearance = null)
+        public Button(Scene scene, int x, int y, int height, string text)
         {
             _scene = scene;
             Text = text;
             Height = height;
             X = x;
             Y = y;
-            Appearance = appearance == null ? DefaultAppearance : appearance.GetValueOrDefault();
 
             // Subscribe to the ButtonDown Event to determine if the button got clicked
             _scene.Console.Mouse.ButtonDown += (source, args) => {
@@ -71,16 +69,6 @@
         /// Fired when the button gets hovered.
         /// </summary>
         public event EventHandler MouseEnter;
-
-        /// <summary>
-        /// Gets or sets the default appearance of a <see cref="Button"/>.
-        /// </summary>
-        public static Appearance DefaultAppearance { get; set; } = new Appearance(Colors.TextColor, Colors.SecondaryColor);
-
-        /// <summary>
-        /// Gets or sets the button appearance.
-        /// </summary>
-        public Appearance Appearance { get; set; }
 
         /// <summary>
         /// Gets or sets the x-position.
@@ -177,11 +165,9 @@
         /// </summary>
         public void Draw()
         {
-            Color4 textColor, backgroundColor;
-
             // Assign colors based on the button state
-            textColor = IsActive ? !IsHighlighted ? _isHovered ? Appearance.HoverTextColor : Appearance.TextColor : Appearance.HighlightTextColor : Appearance.DisabledTextColor;
-            backgroundColor = IsActive ? !IsHighlighted ? _isHovered ? Appearance.HoverBackgroundColor : Appearance.BackgroundColor : Appearance.HighlightBackgroundColor : Appearance.DisabledBackgroundColor;
+            var textColor = IsActive ? !IsHighlighted ? _isHovered ? DefaultButton.HoverTextColor : DefaultButton.TextColor : DefaultButton.HighlightTextColor : DefaultButton.DisabledTextColor;
+            var backgroundColor = IsActive ? !IsHighlighted ? _isHovered ? DefaultButton.HoverBackgroundColor : DefaultButton.BackgroundColor : DefaultButton.HighlightBackgroundColor : DefaultButton.DisabledBackgroundColor;
 
             // Draw the button on the console
             _scene.Console.FillBox(new Point(X, Y), new Point(X + (FixedWidth > 0 ? FixedWidth : (" " + Text + " ").Length), Y + Height - 1), backgroundColor);

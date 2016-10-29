@@ -5,6 +5,7 @@
     using OpenTK.Graphics;
     using System.Drawing;
     using Utility;
+    using Default;
 
     /// <summary>
     /// Displays a Text inside a Box.
@@ -15,11 +16,9 @@
 
         private ColoredString[] _formattedText;
 
-        public TextBox(Scene scene, int x, int y, int width, int height, string[] lines, string header = "", int headerHeight = 3, Appearance? appearance = null, Color4? headerColor = null)
+        public TextBox(Scene scene, int x, int y, int width, int height, string[] lines, string header = "", int headerHeight = 3, Color4? headerColor = null)
         {
             _scene = scene;
-            Appearance = appearance == null ? DefaultAppearance : (Appearance)appearance;
-            HeaderColor = headerColor == null ? Colors.HeaderColor : (Color4)headerColor;
             FormatText(ColoredString.ToArray(lines));
             HeaderText = header;
             HeaderHeight = headerHeight;
@@ -28,11 +27,6 @@
             Width = width;
             Height = height;
         }
-
-        /// <summary>
-        /// Gets or sets the default appearance of a <see cref="TextBox"/>.
-        /// </summary>
-        public static Appearance DefaultAppearance { get; set; } = new Appearance(Colors.TextColor, Colors.DarkBackgroundColor);
 
         public string HeaderText { get; set; }
 
@@ -45,10 +39,6 @@
         public int Height { get; set; }
 
         public int HeaderHeight { get; set; }
-
-        public Appearance Appearance { get; set; }
-
-        public Color4 HeaderColor { get; set; }
 
         /// <summary>
         /// Formats the text for drawing.
@@ -90,24 +80,23 @@
 
         public void FormatText(string[] inputText)
         {
-            FormatText(ColoredString.ToArray(inputText, DefaultAppearance.TextColor, DefaultAppearance.BackgroundColor));
+            FormatText(ColoredString.ToArray(inputText, DefaultTextBox.TextColor, DefaultTextBox.BackgroundColor));
         }
 
         public void Draw()
         {
             var topLeft = new Point(X, Y);
             var bottomRight = new Point(X + Width, Y + Height);
-            var headerBackgroundColor = Colors.Darken(Appearance.BackgroundColor);
             var contentOffset = 1;
 
             // Draw the box
-            _scene.Console.FillBox(topLeft, bottomRight, Appearance.BackgroundColor);
+            _scene.Console.FillBox(topLeft, bottomRight, DefaultTextBox.BackgroundColor);
 
             // Draw the header.
             if (HeaderText != "") {
                 contentOffset += HeaderHeight;
-                _scene.Console.FillBox(topLeft, new Point(X + Width, Y + HeaderHeight - 1), headerBackgroundColor);
-                _scene.Console.Write(Y + HeaderHeight / 2, X + 1, HeaderText, HeaderColor, null);
+                _scene.Console.FillBox(topLeft, new Point(X + Width, Y + HeaderHeight - 1), DefaultTextBox.HeaderBackgroundColor);
+                _scene.Console.Write(Y + HeaderHeight / 2, X + 1, HeaderText, DefaultTextBox.HeaderTextColor, null);
             }
 
             // Draw the content.
