@@ -1,5 +1,6 @@
 ﻿// TODO:
 // - Remove the Appearance struct and provide a better solution.
+
 namespace Game.Controls
 {
     using OpenTK.Graphics;
