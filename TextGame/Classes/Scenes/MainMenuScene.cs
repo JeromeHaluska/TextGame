@@ -29,7 +29,7 @@
             button3.IsActive = false;
             button3.FixedWidth = buttonFixedWidth;
 
-            button4.Appearance = new Appearance(Color4.LightGray, Color4.Crimson);
+            //button4.Appearance = new Appearance(Color4.LightGray, Color4.Crimson);
             button4.FixedWidth = buttonFixedWidth;
             button4.Click += (source, args) => {
                 Console.CloseWindow = true;

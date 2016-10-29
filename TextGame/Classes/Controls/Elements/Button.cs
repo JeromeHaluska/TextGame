@@ -5,24 +5,31 @@
     using OpenTK.Input;
     using Scenes;
     using Default;
+    using OpenTK.Graphics;
 
     public class Button : IControl
     {
         private Scene _scene;
 
         private Bounds _bounds;
-
         private int _x;
-
         private int _y;
-
         private int _fixedWidth = 0;
-
         private int _height;
 
         private string _text;
         
         private bool _isHovered = false;
+
+        // Colors
+        public Color4 TextColor { get; set; }
+        public Color4 BackgroundColor { get; set; }
+        public Color4 HoverTextColor { get; set; }
+        public Color4 HoverBackgroundColor { get; set; }
+        public Color4 DisabledTextColor { get; set; }
+        public Color4 DisabledBackgroundColor { get; set; }
+        public Color4 HighlightTextColor { get; set; }
+        public Color4 HighlightBackgroundColor { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Button"/> class.
@@ -160,14 +167,45 @@
 
         public bool IsHighlighted { get; set; } = false;
 
+        public void SetColors(Color4 textColor, Color4 backgroundColor)
+        {
+            TextColor = textColor;
+            BackgroundColor = backgroundColor;
+            HoverTextColor = Colors.Lighten(TextColor);
+            HoverBackgroundColor = Colors.Lighten(BackgroundColor);
+            DisabledTextColor = Colors.Darken(TextColor);
+            DisabledBackgroundColor = Colors.Darken(BackgroundColor);
+            HighlightTextColor = Colors.Invert(TextColor);
+            HighlightBackgroundColor = Colors.Invert(BackgroundColor);
+        }
+
         /// <summary>
         /// Draws the button on the console.
         /// </summary>
         public void Draw()
         {
+            Color4 textColor, backgroundColor;
+
             // Assign colors based on the button state
-            var textColor = IsActive ? !IsHighlighted ? _isHovered ? DefaultButton.HoverTextColor : DefaultButton.TextColor : DefaultButton.HighlightTextColor : DefaultButton.DisabledTextColor;
-            var backgroundColor = IsActive ? !IsHighlighted ? _isHovered ? DefaultButton.HoverBackgroundColor : DefaultButton.BackgroundColor : DefaultButton.HighlightBackgroundColor : DefaultButton.DisabledBackgroundColor;
+            if (IsActive) {
+                if (!IsHighlighted) {
+                    if (_isHovered) {
+                        textColor = HoverTextColor == null ? DefaultButton.HoverTextColor : HoverTextColor;
+                        backgroundColor = HoverTextColor == null ? DefaultButton.HoverBackgroundColor : HoverBackgroundColor;
+                    } else {
+                        textColor = TextColor == null ? DefaultButton.TextColor : TextColor;
+                        backgroundColor = BackgroundColor == null ? DefaultButton.BackgroundColor : BackgroundColor;
+                    }
+                } else {
+                    textColor = HighlightTextColor == null ? DefaultButton.HighlightTextColor : HighlightTextColor;
+                    backgroundColor = HighlightBackgroundColor == null ? DefaultButton.HighlightBackgroundColor : HighlightBackgroundColor;
+                }
+            } else {
+                textColor = DisabledTextColor == null ? DefaultButton.DisabledTextColor : DisabledTextColor;
+                backgroundColor = DisabledBackgroundColor == null ? DefaultButton.DisabledBackgroundColor : DisabledBackgroundColor;
+            }
+            //var textColor = IsActive ? !IsHighlighted ? _isHovered ? DefaultButton.HoverTextColor : DefaultButton.TextColor : DefaultButton.HighlightTextColor : DefaultButton.DisabledTextColor;
+            //var backgroundColor = IsActive ? !IsHighlighted ? _isHovered ? DefaultButton.HoverBackgroundColor : DefaultButton.BackgroundColor : DefaultButton.HighlightBackgroundColor : DefaultButton.DisabledBackgroundColor;
 
             // Draw the button on the console
             _scene.Console.FillBox(new Point(X, Y), new Point(X + (FixedWidth > 0 ? FixedWidth : (" " + Text + " ").Length), Y + Height - 1), backgroundColor);
@@ -183,6 +221,7 @@
         {
             var buttonTopLeft = new Point(X * _scene.Console.FontWidth, Y * _scene.Console.FontHeight);
             var buttonBottomRight = new Point((X + (FixedWidth <= 0 ? Text.Length + 2 : FixedWidth)) * _scene.Console.FontWidth, (Y + Height) * _scene.Console.FontHeight);
+
             _bounds = new Bounds(buttonTopLeft, buttonBottomRight);
         }
     }

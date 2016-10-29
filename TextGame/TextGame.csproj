@@ -71,6 +71,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Controls\Elements\DefaultAppearance\DefaultButton.cs" />
+    <Compile Include="Classes\Controls\Elements\DefaultAppearance\DefaultDialogueBox.cs" />
+    <Compile Include="Classes\Controls\Elements\DefaultAppearance\DefaultSelection.cs" />
+    <Compile Include="Classes\Controls\Elements\DefaultAppearance\DefaultTextBox.cs" />
     <Compile Include="Classes\Controls\Elements\DialogueBox.cs" />
     <Compile Include="Classes\Controls\Elements\Selection.cs" />
     <Compile Include="Classes\Controls\Elements\TextBox.cs" />

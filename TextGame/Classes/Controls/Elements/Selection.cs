@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using Scenes;
+    using Default;
 
     /// <summary>
     /// A selection can be used to choose between different things.
@@ -137,6 +138,9 @@
         public void AddItem(string text)
         {
             var newButton = new Button(_scene, X, Y + _buttonList.Count, 1, text);
+
+            // Change the colors of the item.
+            newButton.SetColors(DefaultSelection.TextColor, DefaultSelection.BackgroundColor);
 
             // Subscribing to the button Click event.
             newButton.Click += (source, args) => {
