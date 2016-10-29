@@ -52,10 +52,19 @@
         /// <summary>
         /// Adds a control to the Scene.
         /// </summary>
-        /// <param name="control">An control element.</param>
+        /// <param name="control">A control element.</param>
         protected void Add(IControl control)
         {
             _controlList.Add(control);
+        }
+
+        /// <summary>
+        /// Removes a specific control from the Scene.
+        /// </summary>
+        /// <param name="control">A control element.</param>
+        protected void Remove(IControl control)
+        {
+            _controlList.Remove(control);
         }
 
         protected void ResetControls()
