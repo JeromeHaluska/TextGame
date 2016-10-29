@@ -4,7 +4,7 @@
 
     public static class DefaultDialogueBox
     {
-        static Color4 TextColor = Colors.TextColor;
-        static Color4? BackgroundColor = null;
+        public static Color4 TextColor { get; set; } = Colors.TextColor;
+        public static Color4? BackgroundColor { get; set; } = null;
     }
 }

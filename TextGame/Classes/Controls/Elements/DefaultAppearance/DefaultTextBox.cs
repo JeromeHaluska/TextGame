@@ -4,9 +4,9 @@
 
     public static class DefaultTextBox
     {
-        static Color4 TextColor = Colors.TextColor;
-        static Color4 BackgroundColor = Colors.SecondaryColor;
-        static Color4 HeaderTextColor = Colors.HeaderColor;
-        static Color4 HeaderBackgroundColor = Colors.Darken(BackgroundColor);
+        public static Color4 TextColor { get; set; } = Colors.TextColor;
+        public static Color4 BackgroundColor { get; set; } = Colors.SecondaryColor;
+        public static Color4 HeaderTextColor { get; set; } = Colors.HeaderColor;
+        public static Color4 HeaderBackgroundColor { get; set; } = Colors.Darken(BackgroundColor);
     }
 }
