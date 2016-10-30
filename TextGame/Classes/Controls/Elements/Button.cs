@@ -22,14 +22,14 @@
         private bool _isHovered = false;
 
         // Colors
-        public Color4 TextColor { get; set; }
-        public Color4 BackgroundColor { get; set; }
-        public Color4 HoverTextColor { get; set; }
-        public Color4 HoverBackgroundColor { get; set; }
-        public Color4 DisabledTextColor { get; set; }
-        public Color4 DisabledBackgroundColor { get; set; }
-        public Color4 HighlightTextColor { get; set; }
-        public Color4 HighlightBackgroundColor { get; set; }
+        public Color4? TextColor { get; set; } = null;
+        public Color4? BackgroundColor { get; set; } = null;
+        public Color4? HoverTextColor { get; set; } = null;
+        public Color4? HoverBackgroundColor { get; set; } = null;
+        public Color4? DisabledTextColor { get; set; } = null;
+        public Color4? DisabledBackgroundColor { get; set; } = null;
+        public Color4? HighlightTextColor { get; set; } = null;
+        public Color4? HighlightBackgroundColor { get; set; } = null;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Button"/> class.
@@ -171,12 +171,12 @@
         {
             TextColor = textColor;
             BackgroundColor = backgroundColor;
-            HoverTextColor = Colors.Lighten(TextColor);
-            HoverBackgroundColor = Colors.Lighten(BackgroundColor);
-            DisabledTextColor = Colors.Darken(TextColor);
-            DisabledBackgroundColor = Colors.Darken(BackgroundColor);
-            HighlightTextColor = Colors.Invert(TextColor);
-            HighlightBackgroundColor = Colors.Invert(BackgroundColor);
+            HoverTextColor = Colors.Lighten((Color4)TextColor);
+            HoverBackgroundColor = Colors.Lighten((Color4)BackgroundColor);
+            DisabledTextColor = Colors.Darken((Color4)TextColor);
+            DisabledBackgroundColor = Colors.Darken((Color4)BackgroundColor);
+            HighlightTextColor = Colors.Invert((Color4)TextColor);
+            HighlightBackgroundColor = Colors.Invert((Color4)BackgroundColor);
         }
 
         /// <summary>
@@ -190,22 +190,20 @@
             if (IsActive) {
                 if (!IsHighlighted) {
                     if (_isHovered) {
-                        textColor = HoverTextColor == null ? DefaultButton.HoverTextColor : HoverTextColor;
-                        backgroundColor = HoverTextColor == null ? DefaultButton.HoverBackgroundColor : HoverBackgroundColor;
+                        textColor = HoverTextColor == null ? DefaultButton.HoverTextColor : (Color4)HoverTextColor;
+                        backgroundColor = HoverTextColor == null ? DefaultButton.HoverBackgroundColor : (Color4)HoverBackgroundColor;
                     } else {
-                        textColor = TextColor == null ? DefaultButton.TextColor : TextColor;
-                        backgroundColor = BackgroundColor == null ? DefaultButton.BackgroundColor : BackgroundColor;
+                        textColor = TextColor == null ? DefaultButton.TextColor : (Color4)TextColor;
+                        backgroundColor = BackgroundColor == null ? DefaultButton.BackgroundColor : (Color4)BackgroundColor;
                     }
                 } else {
-                    textColor = HighlightTextColor == null ? DefaultButton.HighlightTextColor : HighlightTextColor;
-                    backgroundColor = HighlightBackgroundColor == null ? DefaultButton.HighlightBackgroundColor : HighlightBackgroundColor;
+                    textColor = HighlightTextColor == null ? DefaultButton.HighlightTextColor : (Color4)HighlightTextColor;
+                    backgroundColor = HighlightBackgroundColor == null ? DefaultButton.HighlightBackgroundColor : (Color4)HighlightBackgroundColor;
                 }
             } else {
-                textColor = DisabledTextColor == null ? DefaultButton.DisabledTextColor : DisabledTextColor;
-                backgroundColor = DisabledBackgroundColor == null ? DefaultButton.DisabledBackgroundColor : DisabledBackgroundColor;
+                textColor = DisabledTextColor == null ? DefaultButton.DisabledTextColor : (Color4)DisabledTextColor;
+                backgroundColor = DisabledBackgroundColor == null ? DefaultButton.DisabledBackgroundColor : (Color4)DisabledBackgroundColor;
             }
-            //var textColor = IsActive ? !IsHighlighted ? _isHovered ? DefaultButton.HoverTextColor : DefaultButton.TextColor : DefaultButton.HighlightTextColor : DefaultButton.DisabledTextColor;
-            //var backgroundColor = IsActive ? !IsHighlighted ? _isHovered ? DefaultButton.HoverBackgroundColor : DefaultButton.BackgroundColor : DefaultButton.HighlightBackgroundColor : DefaultButton.DisabledBackgroundColor;
 
             // Draw the button on the console
             _scene.Console.FillBox(new Point(X, Y), new Point(X + (FixedWidth > 0 ? FixedWidth : (" " + Text + " ").Length), Y + Height - 1), backgroundColor);
