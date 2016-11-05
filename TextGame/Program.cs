@@ -8,12 +8,12 @@
     {
         static void Main()
         {
-            var activeConsole = new ExtendedConsoleWindow(25, 80, "Gloria");
-            
-            activeConsole.ActiveScene = new MainMenuScene(activeConsole);
+            var console = new ExtendedConsoleWindow(25, 80, "Gloria");
+
+            console.ActiveScene = new MainMenuScene(console);
 
             // Main game loop
-            while (activeConsole.WindowUpdate()) {
+            while (console.WindowUpdate()) {
                 Thread.Sleep(10);
             }
         }
