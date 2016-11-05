@@ -1,4 +1,4 @@
-﻿namespace Game.Controls
+﻿namespace Draw.Controls
 {
     public interface IControl
     {

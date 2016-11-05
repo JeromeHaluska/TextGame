@@ -1,6 +1,5 @@
-﻿namespace Game
+﻿namespace Draw
 {
-    using System.Linq;
     using OpenTK.Graphics;
     using Scenes;
     using SunshineConsole;

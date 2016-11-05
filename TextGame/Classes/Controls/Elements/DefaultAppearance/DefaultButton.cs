@@ -1,4 +1,4 @@
-﻿namespace Game.Controls.Default
+﻿namespace Draw.Controls.Default
 {
     using OpenTK.Graphics;
 

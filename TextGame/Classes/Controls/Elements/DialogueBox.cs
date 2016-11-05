@@ -1,4 +1,4 @@
-﻿namespace Game.Controls
+﻿namespace Draw.Controls
 {
     using System.Threading.Tasks;
     using System.Collections.Generic;

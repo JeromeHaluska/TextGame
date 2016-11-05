@@ -1,4 +1,4 @@
-﻿namespace Game.Controls
+﻿namespace Draw.Controls
 {
     using System.Collections.Generic;
     using Scenes;

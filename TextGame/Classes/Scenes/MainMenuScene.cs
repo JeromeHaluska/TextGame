@@ -1,4 +1,4 @@
-﻿namespace Game.Scenes
+﻿namespace Draw.Scenes
 {
     using Controls;
     using OpenTK.Graphics;
