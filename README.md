@@ -12,21 +12,21 @@ Without this decision I wouldn't be able to make any progress, and the simple st
 * [Sunshine Console](https://github.com/derrickcreamer/SunshineConsole)
 
 #### Screenshots
-![Image of the main menu](http://stoaser.bplaced.net/asciigame/scrMainMenu.png "Look at those buttons!")  
+![Image of the main menu](http://stoaser.bplaced.net/asciigame/MainMenu.png "Look at those buttons!")  
 The Main Menu, where I currently test control elements!  
 The Buttons you see can have different states like disabled and hovered,  
 which have their own appearance (see the "Options" or "Exit" buttons).
 You can also see a dialogue box on the right, and a selection in the middle.
 With all those elements I can easly create new Screens.
 
-![Gradients in action](http://stoaser.bplaced.net/asciigame/scrGradients.png "Look at those gradients!")  
+![Gradients in action](http://stoaser.bplaced.net/asciigame/Gradients.png "Look at those gradients!")  
 Here is a new feature that I implemented recently.
 You can create strings and give them a gradient as text or background color.
 ```c#
 ColoredString.AddGradient(color1, color2, changeText, changeBackground);
 ```
 
-![Dialogue Box](http://stoaser.bplaced.net/asciigame/scrDialogueBox.png "Taste the rainbow!")  
+![Dialogue Box](http://stoaser.bplaced.net/asciigame/DialogueBox.gif "Taste the rainbow!")  
 The Dialogue Box supports colored strings,
 and prints now letter by letter with a delay between them.
 This delay can be set to any ammount and can possibly be choosen later in the options.
