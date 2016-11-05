@@ -91,9 +91,9 @@
     <Compile Include="Classes\Controls\IControl.cs" />
     <Compile Include="Classes\Utility\ColoredString.cs" />
     <Compile Include="Classes\Utility\Colors.cs" />
-    <Compile Include="Classes\Utility\Components\AttributeComponent.cs" />
-    <Compile Include="Classes\Utility\Components\BodyComponent.cs" />
-    <Compile Include="Classes\Utility\Components\EventComponent.cs" />
+    <Compile Include="Classes\Entities\Components\AttributeComponent.cs" />
+    <Compile Include="Classes\Entities\Components\BodyComponent.cs" />
+    <Compile Include="Classes\Entities\Components\EventComponent.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup>

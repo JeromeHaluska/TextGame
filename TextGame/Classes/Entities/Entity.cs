@@ -2,7 +2,7 @@
 
 namespace Game.Entities
 {
-    using Utility.Components;
+    using Components;
 
     public abstract class Entity
     {
