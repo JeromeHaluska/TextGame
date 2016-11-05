@@ -59,7 +59,7 @@
             _colChars.InsertRange(index, colString._colChars);
         }
 
-        public void AddGradient(Color4 c1, Color4 c2, bool changeText = false, bool changeBackground = false)
+        public void AddGradient(Color4 c1, Color4 c2, bool changeText = true, bool changeBackground = false)
         {
             double numChars = _colChars.Count;
 
@@ -85,6 +85,14 @@
         public static implicit operator ColoredString(ColoredChar a)
         {
             return new ColoredString(a);
+        }
+        
+        public static implicit operator List<ColoredString>(ColoredString a)
+        {
+            var list = new List<ColoredString>();
+
+            list.Add(a);
+            return list;
         }
 
         public static ColoredString operator +(ColoredString a, ColoredString b)
