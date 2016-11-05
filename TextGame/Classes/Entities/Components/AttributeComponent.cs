@@ -1,4 +1,4 @@
-﻿namespace Game.Utility.Components
+﻿namespace Game.Entities.Components
 {
     /// <summary>
     /// Use this component if you want something to have attributes.
