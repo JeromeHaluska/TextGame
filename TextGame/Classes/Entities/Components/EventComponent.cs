@@ -13,15 +13,17 @@
         /// <param name="damageDone">The total amount of damage done to the target.</param>
         public delegate List<ColoredString> OnHitHandler(Entity source, Entity target, int damageDone);
 
+        private OnHitHandler _onHit;
+
         public OnHitHandler OnHit
         {
             get
             {
-                return OnHit;
+                return _onHit;
             }
             set
             {
-                OnHit = value;
+                _onHit = value;
             }
         }
 
@@ -33,15 +35,17 @@
         /// <param name="damageDone">The total amount of damage done to the target.</param>
         public delegate List<ColoredString> OnDamageTakenHandler(Entity source, Entity target, int damageDone);
 
+        private OnDamageTakenHandler _onDamageTaken;
+
         public OnDamageTakenHandler OnDamageTaken
         {
             get
             {
-                return OnDamageTaken;
+                return _onDamageTaken;
             }
             set
             {
-                OnDamageTaken = value;
+                _onDamageTaken = value;
             }
         }
 
@@ -52,15 +56,17 @@
         /// <param name="target">The entity that died.</param>
         public delegate List<ColoredString> OnKillHandler(Entity source, Entity target);
 
+        private OnKillHandler _onKill;
+
         public OnKillHandler OnKill
         {
             get
             {
-                return OnKill;
+                return _onKill;
             }
             set
             {
-                OnKill = value;
+                _onKill = value;
             }
         }
 
@@ -71,15 +77,17 @@
         /// <param name="target">The entity that died.</param>
         public delegate List<ColoredString> OnDeathHandler(Entity source, Entity target);
 
+        private OnDeathHandler _onDeath;
+
         public OnDeathHandler OnDeath
         {
             get
             {
-                return OnDeath;
+                return _onDeath;
             }
             set
             {
-                OnDeath = value;
+                _onDeath = value;
             }
         }
     }
