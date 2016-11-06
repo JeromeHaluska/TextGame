@@ -17,14 +17,8 @@
 
         public OnHitHandler OnHit
         {
-            get
-            {
-                return _onHit;
-            }
-            set
-            {
-                _onHit = value;
-            }
+            get { return _onHit; }
+            set { _onHit = value; }
         }
 
         /// <summary>
@@ -39,14 +33,8 @@
 
         public OnDamageTakenHandler OnDamageTaken
         {
-            get
-            {
-                return _onDamageTaken;
-            }
-            set
-            {
-                _onDamageTaken = value;
-            }
+            get { return _onDamageTaken; }
+            set { _onDamageTaken = value; }
         }
 
         /// <summary>
@@ -60,14 +48,8 @@
 
         public OnKillHandler OnKill
         {
-            get
-            {
-                return _onKill;
-            }
-            set
-            {
-                _onKill = value;
-            }
+            get { return _onKill; }
+            set { _onKill = value; }
         }
 
         /// <summary>
@@ -81,14 +63,8 @@
 
         public OnDeathHandler OnDeath
         {
-            get
-            {
-                return _onDeath;
-            }
-            set
-            {
-                _onDeath = value;
-            }
+            get { return _onDeath; }
+            set { _onDeath = value; }
         }
     }
 }
