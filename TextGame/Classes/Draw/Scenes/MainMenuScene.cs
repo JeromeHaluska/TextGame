@@ -9,7 +9,7 @@
     /// </summary>
     public class MainMenuScene : Scene
     {
-        public MainMenuScene(ExtendedConsoleWindow console) : base(console)
+        public MainMenuScene() : base()
         {
             var buttonFixedWidth = 15;
             var button1 = new Button(this, 1, 3, 3, "New Game");

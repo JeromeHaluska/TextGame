@@ -8,7 +8,7 @@
     {
         private Dictionary<string, string[]> _pathToDescription = new Dictionary<string, string[]>();
 
-        public CharacterCreationScene(ExtendedConsoleWindow console) : base(console)
+        public CharacterCreationScene() : base()
         {
             var confirmButton = new Button(this, 1, Console.Rows - 4, 3, "Confirm");
             var pathSelection = new Selection(this, 1, 3, 25, 1, 1);

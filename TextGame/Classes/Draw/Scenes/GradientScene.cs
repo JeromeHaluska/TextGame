@@ -9,7 +9,7 @@
     {
         private List<ColoredString> _colStringList = new List<ColoredString>();
 
-        public GradientScene(ExtendedConsoleWindow console) : base(console)
+        public GradientScene() : base()
         {
             var rnd = new Random();
 

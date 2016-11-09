@@ -13,10 +13,13 @@
 
         public ExtendedConsoleWindow(int rows, int columns, string windowTitle) : base(rows, columns, windowTitle)
         {
+            Console = this;
             Closed += (source, args) => {
                 CloseWindow = true;
             };
         }
+
+        static public ExtendedConsoleWindow Console { get; set; }
 
         public Scene ActiveScene { get; set; }
 

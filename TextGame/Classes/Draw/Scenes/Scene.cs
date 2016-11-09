@@ -9,11 +9,6 @@
     public abstract class Scene
     {
         /// <summary>
-        /// The used console.
-        /// </summary>
-        private ExtendedConsoleWindow _console;
-
-        /// <summary>
         /// A list of all used controls by the scene.
         /// </summary>
         private List<IControl> _controlList = new List<IControl>();
@@ -22,20 +17,15 @@
         /// Initializes a new instance of the <see cref="Scene"/> class.
         /// </summary>
         /// <param name="console">Console that should be used.</param>
-        public Scene(ExtendedConsoleWindow console)
+        public Scene()
         {
-            Console = console;
+            Console = ExtendedConsoleWindow.Console;
         }
 
         /// <summary>
         /// Gets the used console of the scene.
         /// </summary>
-        public ExtendedConsoleWindow Console
-        {
-            get { return _console; }
-
-            private set { _console = value; }
-        }
+        public ExtendedConsoleWindow Console { get; private set; }
 
         /// <summary>
         /// Draws all added controls to the console.
