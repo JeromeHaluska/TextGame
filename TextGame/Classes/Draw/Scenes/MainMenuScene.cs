@@ -12,14 +12,14 @@
         public MainMenuScene() : base()
         {
             var buttonFixedWidth = 15;
-            var button1 = new Button(this, 1, 3, 3, "New Game");
-            var button2 = new Button(this, 1, 7, 3, "Load Game");
-            var button3 = new Button(this, 1, 11, 3, "Options");
-            var button4 = new Button(this, 1, Console.Rows - 4, 3, "Exit");
+            var button1 = new Button(1, 3, 3, "New Game");
+            var button2 = new Button(1, 7, 3, "Load Game");
+            var button3 = new Button(1, 11, 3, "Options");
+            var button4 = new Button(1, Console.Rows - 4, 3, "Exit");
 
             button1.FixedWidth = buttonFixedWidth;
             button1.Click += (source, args) => {
-                Console.ActiveScene = new CharacterCreationScene(Console);
+                Console.ActiveScene = new CharacterCreationScene();
                 return;
             };
 
@@ -29,7 +29,8 @@
             button3.IsActive = false;
             button3.FixedWidth = buttonFixedWidth;
 
-            //button4.Appearance = new Appearance(Color4.LightGray, Color4.Crimson);
+            button4.TextColor = Color4.LightGray;
+            button4.BackgroundColor = Color4.Crimson;
             button4.FixedWidth = buttonFixedWidth;
             button4.Click += (source, args) => {
                 Console.CloseWindow = true;
@@ -42,7 +43,7 @@
 
             // Rainbow Text with Dialogue Box.
             DialogueBox.Delay = 10;
-            var dBox = new DialogueBox(this, 18, 1, 61, 23);
+            var dBox = new DialogueBox(18, 1, 61, 23);
             var colString = new ColoredString("");
             var gradientColString = new ColoredString("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.");
             for (int cnt = 0; cnt < 10; cnt++) {

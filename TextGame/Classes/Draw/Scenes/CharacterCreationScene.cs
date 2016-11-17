@@ -10,9 +10,9 @@
 
         public CharacterCreationScene() : base()
         {
-            var confirmButton = new Button(this, 1, Console.Rows - 4, 3, "Confirm");
-            var pathSelection = new Selection(this, 1, 3, 25, 1, 1);
-            var pathDescriptionBox = new TextBox(this, 36, 0, Console.Cols - 37, Console.Rows - 1, new string[0], "Hover over a path for a description");
+            var confirmButton = new Button(1, Console.Rows - 4, 3, "Confirm");
+            var pathSelection = new Selection(1, 3, 25, 1, 1);
+            var pathDescriptionBox = new TextBox(36, 0, Console.Cols - 37, Console.Rows - 1, new string[0], "Hover over a path for a description");
 
             // Fill dictionary with descriptions of the different paths.
             _pathToDescription.Add("Brute", new string[] {
