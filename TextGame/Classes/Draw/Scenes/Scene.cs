@@ -16,16 +16,15 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="Scene"/> class.
         /// </summary>
-        /// <param name="console">Console that should be used.</param>
         public Scene()
         {
             Console = ExtendedConsoleWindow.Console;
         }
 
         /// <summary>
-        /// Gets the used console of the scene.
+        /// Gets the console of the scene that is used for drawing.
         /// </summary>
-        public ExtendedConsoleWindow Console { get; private set; }
+        protected ExtendedConsoleWindow Console { private set; get; }
 
         /// <summary>
         /// Draws all added controls to the console.
