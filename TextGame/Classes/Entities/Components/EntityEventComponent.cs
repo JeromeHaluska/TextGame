@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using Draw.Utility;
 
-    public class EventComponent
+    public class EntityEventComponent
     {
         /// <summary>
         /// Gets fired when the entity deals damage.

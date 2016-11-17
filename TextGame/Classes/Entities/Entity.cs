@@ -29,6 +29,6 @@ namespace Game.Entities
 
         public AttributeComponent Attributes { get; private set; }
 
-        public EventComponent Events { get; private set; } = new EventComponent();
+        public EntityEventComponent Events { get; private set; } = new EntityEventComponent();
     }
 }
