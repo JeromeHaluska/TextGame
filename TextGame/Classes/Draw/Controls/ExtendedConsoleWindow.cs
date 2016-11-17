@@ -9,8 +9,6 @@
 
     public class ExtendedConsoleWindow : ConsoleWindow
     {
-        private bool _closeWindow = false;
-
         public ExtendedConsoleWindow(int rows, int columns, string windowTitle) : base(rows, columns, windowTitle)
         {
             Console = this;
@@ -39,18 +37,7 @@
             }
         }
 
-        public bool CloseWindow
-        {
-            get
-            {
-                return _closeWindow;
-            }
-
-            set
-            {
-                _closeWindow = value;
-            }
-        }
+        public bool CloseWindow { get; set; }
 
         public void Write(int row, int col, string text)
         {
