@@ -82,6 +82,11 @@
             }
         }
 
+        public static implicit operator ColoredString(string s)
+        {
+            return new ColoredString(s, Colors.TextColor);
+        }
+
         public static implicit operator ColoredString(ColoredChar a)
         {
             return new ColoredString(a);
