@@ -8,15 +8,15 @@
 
     public class DialogueBox : IControl
     {
-        private Scene _scene;
+        private ExtendedConsoleWindow _console;
 
         private List<ColoredString> _writeQueue = new List<ColoredString>();
 
         private List<ColoredString> _lines = new List<ColoredString>();
         
-        public DialogueBox(Scene scene, int x, int y, int width, int height)
+        public DialogueBox(int x, int y, int width, int height)
         {
-            _scene = scene;
+            _console = ExtendedConsoleWindow.Console;
             Height = height;
             Width = width;
             X = x;
@@ -133,7 +133,7 @@
             for (int cnt = 0; cnt < _lines.Count; cnt++) {
                 var curLine = _lines[cnt];
 
-                _scene.Console.Write(Y + cnt, X, curLine);
+                _console.Write(Y + cnt, X, curLine);
             }
         }
     }

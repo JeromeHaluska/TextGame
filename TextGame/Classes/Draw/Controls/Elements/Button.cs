@@ -9,6 +9,11 @@
 
     public class Button : IControl
     {
+        private ExtendedConsoleWindow _console;
+
+        /// <summary>
+        /// Holds the scene that was active the moment this object was created.
+        /// </summary>
         private Scene _scene;
 
         private Bounds _bounds;
@@ -34,28 +39,27 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="Button"/> class.
         /// </summary>
-        /// <param name="console">Console that should be used.</param>
         /// <param name="x">Button x-position.</param>
         /// <param name="y">Button y-position.</param>
         /// <param name="height">Button height.</param>
         /// <param name="text">The displayed text on the button.</param>
-        public Button(Scene scene, int x, int y, int height, string text)
+        public Button(int x, int y, int height, string text)
         {
-            _scene = scene;
+            _console = ExtendedConsoleWindow.Console;
             Text = text;
             Height = height;
             X = x;
             Y = y;
 
             // Subscribe to the ButtonDown Event to determine if the button got clicked
-            _scene.Console.Mouse.ButtonDown += (source, args) => {
-                if (Click != null && _scene.Console.ActiveScene == _scene && IsActive && _isHovered && args.Button == MouseButton.Left) {
+            _console.Mouse.ButtonDown += (source, args) => {
+                if (Click != null && _console.ActiveScene == _scene && IsActive && _isHovered && args.Button == MouseButton.Left) {
                     Click(this, EventArgs.Empty);
                 }
             };
 
             // Subscribes to the Move Event to determine if the button is hovered
-            _scene.Console.Mouse.Move += (source, args) => {
+            _console.Mouse.Move += (source, args) => {
                 if (_bounds.Contains(args.Position)) {
                     if (!_isHovered) {
                         MouseEnter?.Invoke(this, EventArgs.Empty);
@@ -186,7 +190,10 @@
         {
             Color4 textColor, backgroundColor;
 
-            // Assign colors based on the button state
+            // Needs to be here for correct mouse input.
+            _scene = ExtendedConsoleWindow.Console.ActiveScene != _scene ? ExtendedConsoleWindow.Console.ActiveScene : _scene;
+
+            // Assign colors based on the button state.
             if (IsActive) {
                 if (!IsHighlighted) {
                     if (_isHovered) {
@@ -205,9 +212,9 @@
                 backgroundColor = DisabledBackgroundColor == null ? DefaultButton.DisabledBackgroundColor : (Color4)DisabledBackgroundColor;
             }
 
-            // Draw the button on the console
-            _scene.Console.FillBox(new Point(X, Y), new Point(X + (FixedWidth > 0 ? FixedWidth : (" " + Text + " ").Length), Y + Height - 1), backgroundColor);
-            _scene.Console.Write(
+            // Draw the button on the console.
+            _console.FillBox(new Point(X, Y), new Point(X + (FixedWidth > 0 ? FixedWidth : (" " + Text + " ").Length), Y + Height - 1), backgroundColor);
+            _console.Write(
                     Y + Height / 2,
                     X,
                     " " + Text,
@@ -217,8 +224,8 @@
 
         private void RecalculateBounds()
         {
-            var buttonTopLeft = new Point(X * _scene.Console.FontWidth, Y * _scene.Console.FontHeight);
-            var buttonBottomRight = new Point((X + (FixedWidth <= 0 ? Text.Length + 2 : FixedWidth)) * _scene.Console.FontWidth, (Y + Height) * _scene.Console.FontHeight);
+            var buttonTopLeft = new Point(X * _console.FontWidth, Y * _console.FontHeight);
+            var buttonBottomRight = new Point((X + (FixedWidth <= 0 ? Text.Length + 2 : FixedWidth)) * _console.FontWidth, (Y + Height) * _console.FontHeight);
 
             _bounds = new Bounds(buttonTopLeft, buttonBottomRight);
         }

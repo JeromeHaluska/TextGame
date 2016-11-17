@@ -1,24 +1,24 @@
 ﻿namespace Draw.Controls
 {
     using System.Collections.Generic;
-    using Scenes;
-    using OpenTK.Graphics;
     using System.Drawing;
-    using Utility;
     using Default;
+    using OpenTK.Graphics;
+    using Scenes;
+    using Utility;
 
     /// <summary>
     /// Displays a Text inside a Box.
     /// </summary>
     public class TextBox : IControl
     {
-        private Scene _scene;
+        private ExtendedConsoleWindow _console;
 
         private ColoredString[] _formattedText;
 
-        public TextBox(Scene scene, int x, int y, int width, int height, string[] lines, string header = "", int headerHeight = 3, Color4? headerColor = null)
+        public TextBox(int x, int y, int width, int height, string[] lines, string header = "", int headerHeight = 3, Color4? headerColor = null)
         {
-            _scene = scene;
+            _console = ExtendedConsoleWindow.Console;
             FormatText(ColoredString.ToArray(lines));
             HeaderText = header;
             HeaderHeight = headerHeight;
@@ -90,19 +90,19 @@
             var contentOffset = 1;
 
             // Draw the box
-            _scene.Console.FillBox(topLeft, bottomRight, DefaultTextBox.BackgroundColor);
+            _console.FillBox(topLeft, bottomRight, DefaultTextBox.BackgroundColor);
 
             // Draw the header.
             if (HeaderText != "") {
                 contentOffset += HeaderHeight;
-                _scene.Console.FillBox(topLeft, new Point(X + Width, Y + HeaderHeight - 1), DefaultTextBox.HeaderBackgroundColor);
-                _scene.Console.Write(Y + HeaderHeight / 2, X + 1, HeaderText, DefaultTextBox.HeaderTextColor, null);
+                _console.FillBox(topLeft, new Point(X + Width, Y + HeaderHeight - 1), DefaultTextBox.HeaderBackgroundColor);
+                _console.Write(Y + HeaderHeight / 2, X + 1, HeaderText, DefaultTextBox.HeaderTextColor, null);
             }
 
             // Draw the content.
             var cnt = 0;
             foreach (ColoredString line in _formattedText) {
-                _scene.Console.Write(Y + contentOffset + (cnt++), X + 1, line);
+                _console.Write(Y + contentOffset + (cnt++), X + 1, line);
             }
         }
     }

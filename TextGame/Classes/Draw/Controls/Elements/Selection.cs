@@ -2,16 +2,14 @@
 {
     using System;
     using System.Collections.Generic;
-    using Scenes;
     using Default;
+    using Scenes;
 
     /// <summary>
     /// A selection can be used to choose between different things.
     /// </summary>
     public class Selection : IControl
     {
-        private Scene _scene;
-
         private List<Button> _buttonList = new List<Button>();
 
         private int _x;
@@ -26,9 +24,8 @@
 
         private int _selectedItems;
 
-        public Selection(Scene scene, int x, int y, int fixedWidth = 0, int minSelectedItems = 1, int maxSelectedItems = 1)
+        public Selection(int x, int y, int fixedWidth = 0, int minSelectedItems = 1, int maxSelectedItems = 1)
         {
-            _scene = scene;
             X = x;
             Y = y;
             FixedWidth = fixedWidth;
@@ -137,7 +134,7 @@
 
         public void AddItem(string text)
         {
-            var newButton = new Button(_scene, X, Y + _buttonList.Count, 1, text);
+            var newButton = new Button(X, Y + _buttonList.Count, 1, text);
 
             // Change the colors of the item.
             newButton.SetColors(DefaultSelection.TextColor, DefaultSelection.BackgroundColor);
