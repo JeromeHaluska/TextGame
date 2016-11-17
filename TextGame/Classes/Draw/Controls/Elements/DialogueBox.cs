@@ -102,6 +102,9 @@
                         AddLetter(ch);
                     }
                     _writeQueue.RemoveAt(0);
+
+                    // Adds a new line after every write request.
+                    _lines.Add(new ColoredString());
                 }
             }
         }
