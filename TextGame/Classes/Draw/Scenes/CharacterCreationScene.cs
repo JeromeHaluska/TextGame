@@ -24,18 +24,29 @@
                 "His thick, leathery skin " +
                 "helps him to stay on his foot. ",
                 "",
-                "This should be a new paragraph!"
+                "Evolves into:",
+                "Brute -> Mercenary -> Barbarian"
             });
             _pathToDescription.Add("Gravedigger", new string[] {
-                "... (he doesn't talk much)",
+                "He really likes his job.",
+                "",
+                "Evolves into:",
+                "Gravedigger -> Cultist -> Summoner"
             });
-            _pathToDescription.Add("Loremaster", new string[] {
-                "Very interested in books!",
+            _pathToDescription.Add("Scum", new string[] {
+                "What the scum doesn't achieve through his tactical thinking " +
+                "he gets with a cheap trick or two.",
+                "",
+                "Thats the reason why he isn't very popular with people," +
+                " but he earns their fear and thats atleast something.",
+                "",
+                "Evolves into:",
+                "Scum -> Thief -> Assassin"
             });
 
             pathSelection.AddItem("Brute");
             pathSelection.AddItem("Gravedigger");
-            pathSelection.AddItem("Loremaster");
+            pathSelection.AddItem("Scum");
 
             // Enables the confirm button if the selection is valid.
             pathSelection.Valid += (source, args) => {
