@@ -24,13 +24,13 @@
                 "His thick, leathery skin " +
                 "helps him to stay on his foot. ",
                 "",
-                "Evolves into:",
+                "Path:",
                 "Brute -> Mercenary -> Barbarian"
             });
             _pathToDescription.Add("Gravedigger", new string[] {
                 "He really likes his job.",
                 "",
-                "Evolves into:",
+                "Path:",
                 "Gravedigger -> Cultist -> Summoner"
             });
             _pathToDescription.Add("Scum", new string[] {
@@ -40,7 +40,7 @@
                 "Thats the reason why he isn't very popular with people," +
                 " but he earns their fear and thats atleast something.",
                 "",
-                "Evolves into:",
+                "Path:",
                 "Scum -> Thief -> Assassin"
             });
 
