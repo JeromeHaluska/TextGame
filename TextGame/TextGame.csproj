@@ -58,6 +58,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
       <HintPath>..\packages\OpenTK.Next.1.1.1612.8936\lib\net20\OpenTK.dll</HintPath>
       <Private>True</Private>
@@ -71,6 +75,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Combat\Paths\Brute.cs" />
+    <Compile Include="Classes\Combat\Paths\Path.cs" />
+    <Compile Include="Classes\Combat\Paths\PathJsonReader.cs" />
+    <Compile Include="Classes\Combat\Skills\Scum\Push.cs" />
+    <Compile Include="Classes\Combat\Skills\Skill.cs" />
     <Compile Include="Classes\Draw\Controls\Elements\DefaultAppearance\DefaultButton.cs" />
     <Compile Include="Classes\Draw\Controls\Elements\DefaultAppearance\DefaultDialogueBox.cs" />
     <Compile Include="Classes\Draw\Controls\Elements\DefaultAppearance\DefaultSelection.cs" />
@@ -80,6 +89,7 @@
     <Compile Include="Classes\Draw\Controls\Elements\TextBox.cs" />
     <Compile Include="Classes\Entities\Entity.cs" />
     <Compile Include="Classes\Entities\Player.cs" />
+    <Compile Include="Classes\Game.cs" />
     <Compile Include="Classes\Items\ItemBuilder\IBuildItems.cs" />
     <Compile Include="Classes\Items\Item.cs" />
     <Compile Include="Classes\Combat\DamageTypes.cs" />
