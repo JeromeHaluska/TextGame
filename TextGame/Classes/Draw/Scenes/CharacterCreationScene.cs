@@ -14,7 +14,7 @@
             var pathSelection = new Selection(1, 3, 25, 1, 1);
             var pathDescriptionBox = new TextBox(36, 0, Console.Cols - 37, Console.Rows - 1, new string[0], "Hover over a path for a description");
 
-            // Fill dictionary with descriptions of the different paths.
+            // Fill dictionary with descriptions of the different paths. (Shouldn't be in here)
             _pathToDescription.Add("Brute", new string[] {
                 "The brute is a fierce fighter. " +
                 "He has no interrest in magic. " +
