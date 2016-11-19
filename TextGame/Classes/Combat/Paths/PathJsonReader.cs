@@ -12,13 +12,10 @@
         /// Initialises a json reader to read the path json file.
         /// </summary>
         /// <param name="path">The path that should be loaded.</param>
-        public PathJsonReader(Path path)
+        public PathJsonReader(string pathName)
         {
-            // Gets the name of the path class.
-            var pathClassName = path.GetType().Name.ToString();
-
             // Opens the path data file.
-            TextReader fileReader = File.OpenText(Game.GetApplicationPath() + @"\data\paths\" + pathClassName + ".txt");
+            TextReader fileReader = File.OpenText(Game.GetApplicationPath() + @"\data\paths\" + pathName + ".txt");
 
             // Initialises a json reader to read from the path data file.
             var jsonReader = new JsonTextReader(fileReader);

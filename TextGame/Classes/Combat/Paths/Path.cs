@@ -4,11 +4,11 @@
     using System.Collections.Generic;
     using Skills;
 
-    public abstract class Path
+    public class Path
     {
-        public Path()
+        public Path(string pathName)
         {
-            var pathJsonReader = new PathJsonReader(this);
+            var pathJsonReader = new PathJsonReader(pathName);
 
             NameProgressionList = pathJsonReader.NameProgressionList;
             StartingSkillList = pathJsonReader.StartingSkillList;
@@ -39,18 +39,18 @@
         /// <returns></returns>
         public List<Skill> GetUsableSkills(int playerLevel)
         {
-            List<Skill> useableSkills = new List<Skill>();
+            List<Skill> useableSkillList = new List<Skill>();
             if (StartingSkillList != null) {
                 foreach (Skill skill in StartingSkillList) {
-                    useableSkills.Add(skill);
+                    useableSkillList.Add(skill);
                 }
             }
             for (int cnt = 0; cnt < Math.Min(playerLevel, 100); cnt++) {
                 if (SkillProgressionList[cnt] != null) {
-                    useableSkills.Add(SkillProgressionList[cnt]);
+                    useableSkillList.Add(SkillProgressionList[cnt]);
                 }
             }
-            return useableSkills;
+            return useableSkillList;
         }
 
         /// <summary>
