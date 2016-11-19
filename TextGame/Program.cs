@@ -2,7 +2,7 @@
 {
     using System.Threading;
     using Draw;
-    using Draw.Scenes;
+    using Scenes;
 
     class Program
     {

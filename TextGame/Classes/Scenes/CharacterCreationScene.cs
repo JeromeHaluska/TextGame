@@ -1,8 +1,9 @@
-﻿namespace Draw.Scenes
+﻿namespace Game.Scenes
 {
     using System.Collections.Generic;
     using Draw.Controls;
     using Draw;
+    using Draw.Utility;
 
     public class CharacterCreationScene : Scene
     {

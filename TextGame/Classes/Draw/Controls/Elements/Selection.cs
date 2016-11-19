@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using Default;
-    using Scenes;
 
     /// <summary>
     /// A selection can be used to choose between different things.

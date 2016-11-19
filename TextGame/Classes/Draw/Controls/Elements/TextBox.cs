@@ -4,7 +4,6 @@
     using System.Drawing;
     using Default;
     using OpenTK.Graphics;
-    using Scenes;
     using Utility;
 
     /// <summary>

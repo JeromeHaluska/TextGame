@@ -3,7 +3,6 @@
     using System.Threading.Tasks;
     using System.Collections.Generic;
     using OpenTK.Graphics;
-    using Scenes;
     using Utility;
 
     public class DialogueBox : IControl

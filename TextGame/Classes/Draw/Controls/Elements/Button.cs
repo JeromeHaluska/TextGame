@@ -3,9 +3,9 @@
     using System;
     using System.Drawing;
     using OpenTK.Input;
-    using Scenes;
     using Default;
     using OpenTK.Graphics;
+    using Utility;
 
     public class Button : IControl
     {

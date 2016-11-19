@@ -1,9 +1,10 @@
-﻿namespace Draw.Scenes
+﻿namespace Game.Scenes
 {
     using OpenTK.Graphics;
     using System;
     using System.Collections.Generic;
-    using Utility;
+    using Draw.Utility;
+    using Draw;
 
     public class GradientScene : Scene
     {

@@ -1,8 +1,9 @@
-﻿namespace Draw.Scenes
+﻿namespace Game.Scenes
 {
-    using Controls;
+    using Draw.Controls;
     using OpenTK.Graphics;
-    using Utility;
+    using Draw.Utility;
+    using Draw;
 
     /// <summary>
     /// The main menu of the game.

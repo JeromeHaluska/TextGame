@@ -1,7 +1,6 @@
 ﻿namespace Draw
 {
     using OpenTK.Graphics;
-    using Scenes;
     using SunshineConsole;
     using System.Drawing;
     using System;
