@@ -75,7 +75,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\Combat\Paths\Brute.cs" />
     <Compile Include="Classes\Combat\Paths\Path.cs" />
     <Compile Include="Classes\Combat\Paths\PathJsonReader.cs" />
     <Compile Include="Classes\Combat\Skills\Scum\Push.cs" />
@@ -87,16 +86,17 @@
     <Compile Include="Classes\Draw\Controls\Elements\DialogueBox.cs" />
     <Compile Include="Classes\Draw\Controls\Elements\Selection.cs" />
     <Compile Include="Classes\Draw\Controls\Elements\TextBox.cs" />
+    <Compile Include="Classes\Entities\BodyPart.cs" />
     <Compile Include="Classes\Entities\Entity.cs" />
     <Compile Include="Classes\Entities\Player.cs" />
     <Compile Include="Classes\Game.cs" />
     <Compile Include="Classes\Items\ItemBuilder\IBuildItems.cs" />
     <Compile Include="Classes\Items\Item.cs" />
     <Compile Include="Classes\Combat\DamageTypes.cs" />
-    <Compile Include="Classes\Draw\Scenes\GradientScene.cs" />
-    <Compile Include="Classes\Draw\Scenes\CharacterCreationScene.cs" />
-    <Compile Include="Classes\Draw\Scenes\Scene.cs" />
-    <Compile Include="Classes\Draw\Scenes\MainMenuScene.cs" />
+    <Compile Include="Classes\Scenes\GradientScene.cs" />
+    <Compile Include="Classes\Scenes\CharacterCreationScene.cs" />
+    <Compile Include="Classes\Draw\Utility\Scene.cs" />
+    <Compile Include="Classes\Scenes\MainMenuScene.cs" />
     <Compile Include="Classes\Draw\Controls\ExtendedConsoleWindow.cs" />
     <Compile Include="Classes\Draw\Controls\Appearance.cs" />
     <Compile Include="Classes\Draw\Controls\Bounds.cs" />
@@ -121,7 +121,9 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Classes\Combat\Traits\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
