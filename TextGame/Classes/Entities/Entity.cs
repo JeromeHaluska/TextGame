@@ -2,33 +2,26 @@
 
 namespace Game.Entities
 {
+    using Attributes;
     using Components;
 
     public abstract class Entity
     {
-        public Entity(
-            string name, 
-            int damage, float damageMultiplier,
-            int armor, float armorMultiplier,
-            float hitChance, float hitChanceMultiplier,
-            float criticalHitChance, float criticalHitChanceMultiplier,
-            int criticalDamage, float criticalDamageMultiplier)
+        public Entity(string name)
         {
-            Attributes = new AttributeComponent(
-                damage, damageMultiplier,
-                armor, armorMultiplier,
-                hitChance, hitChanceMultiplier,
-                criticalHitChance, criticalHitChanceMultiplier,
-                criticalDamage, criticalDamageMultiplier
-            );
-
             Body = new BodyComponent();
+
+            Attributes.LinkModifier(BaseAttributes);
+            BaseAttributes.Add.Add(Attribute.HitChance, 90);
+            BaseAttributes.Add.Add(Attribute.CriticalHitChance, 5);
         }
 
-        public BodyComponent Body { get; private set; }
+        public BodyComponent Body { get; protected set; }
 
-        public AttributeComponent Attributes { get; private set; }
+        public AttributeModifier BaseAttributes { get; protected set; } = new AttributeModifier();
 
-        public EntityEventComponent Events { get; private set; } = new EntityEventComponent();
+        public AttributeComponent Attributes { get; protected set; } = new AttributeComponent();
+
+        public EntityEventComponent Events { get; protected set; } = new EntityEventComponent();
     }
 }

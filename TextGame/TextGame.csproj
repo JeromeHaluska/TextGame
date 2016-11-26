@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{53BE6BC9-3842-457F-A60C-FD67CCFADF3A}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Game</RootNamespace>
     <AssemblyName>TextGame</AssemblyName>
@@ -75,8 +75,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Attributes\AttributeModifier.cs" />
     <Compile Include="Classes\Combat\Paths\Path.cs" />
-    <Compile Include="Classes\Combat\Paths\PathJsonReader.cs" />
     <Compile Include="Classes\Combat\Skills\Scum\Push.cs" />
     <Compile Include="Classes\Combat\Skills\Skill.cs" />
     <Compile Include="Classes\Draw\Controls\Elements\DefaultAppearance\DefaultButton.cs" />
@@ -90,9 +90,11 @@
     <Compile Include="Classes\Entities\Entity.cs" />
     <Compile Include="Classes\Entities\Player.cs" />
     <Compile Include="Classes\Game.cs" />
+    <Compile Include="Classes\Items\Armor.cs" />
     <Compile Include="Classes\Items\ItemBuilder\IBuildItems.cs" />
     <Compile Include="Classes\Items\Item.cs" />
     <Compile Include="Classes\Combat\DamageTypes.cs" />
+    <Compile Include="Classes\Scenes\ExceptionScene.cs" />
     <Compile Include="Classes\Scenes\GradientScene.cs" />
     <Compile Include="Classes\Scenes\CharacterCreationScene.cs" />
     <Compile Include="Classes\Draw\Utility\Scene.cs" />

@@ -1,7 +1,30 @@
 ﻿namespace Game.Entities
 {
+    using Attributes;
+    using Components;
+
     class BodyPart
     {
+        public BodyPart(string name, int health, bool isNeededToAttack = false, bool isNeededToLive = false)
+        {
+            IsNeededToAttack = isNeededToAttack;
+            IsNeededToLive = isNeededToLive;
+
+
+
+            Attributes.LinkModifier(BaseAttributes);
+        }
+
+        public AttributeModifier BaseAttributes { get; private set; } = new AttributeModifier();
+
+        public AttributeComponent Attributes { get; private set; } = new AttributeComponent();
+
+        public int Health { get; private set; }
+
+        public bool IsNeededToAttack { get; private set; }
+
+        public bool IsNeededToLive { get; private set; }
+
         /*
         private Entity linkedEntity;
         public Armor equippedArmor;
