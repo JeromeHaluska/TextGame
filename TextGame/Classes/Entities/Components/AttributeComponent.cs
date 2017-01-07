@@ -4,7 +4,7 @@
     using Attributes;
 
     /// <summary>
-    /// Use this component if a something derives attributes from different sources.
+    /// Use this component if something derives attributes from many different <see cref="AttributeModifier"/>.
     /// </summary>
     public class AttributeComponent
     {
