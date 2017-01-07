@@ -96,13 +96,13 @@
                         NameProgressionList[propertyValuePair.Key] = propertyValuePair.Value;
                         break;
                         case "StartingSkillList":
-                        skillType = Type.GetType("Game.Combat.Skills." + propertyValuePair.Value);
+                        skillType = Type.GetType("Game.Skills." + propertyValuePair.Value);
                         skillInstance = (Skill)Activator.CreateInstance(skillType);
 
                         StartingSkillList.Add(skillInstance);
                         break;
                         case "SkillProgressionList":
-                        skillType = Type.GetType("Game.Combat.Skills." + propertyValuePair.Value);
+                        skillType = Type.GetType("Game.Skills." + propertyValuePair.Value);
                         skillInstance = (Skill)Activator.CreateInstance(skillType);
 
                         SkillProgressionList[propertyValuePair.Key] = skillInstance;
