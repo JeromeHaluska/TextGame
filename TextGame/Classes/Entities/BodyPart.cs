@@ -1,50 +1,39 @@
 ﻿namespace Game.Entities
 {
-    using Attributes;
-    using Components;
+    using Items;
 
-    class BodyPart
+    public class BodyPart
     {
-        public BodyPart(string name, int health, bool isNeededToAttack = false, bool isNeededToLive = false)
+        public BodyPart(string name, float hitChanceMultiplier, float damageMultiplier)
         {
-            IsNeededToAttack = isNeededToAttack;
-            IsNeededToLive = isNeededToLive;
-
-
-
-            Attributes.LinkModifier(BaseAttributes);
+            HitChanceMultiplier = hitChanceMultiplier;
+            DamageMultiplier = damageMultiplier;
         }
 
-        public AttributeModifier BaseAttributes { get; private set; } = new AttributeModifier();
+        /// <summary>
+        /// Gets or sets the item that is equipped on this body part.
+        /// </summary>
+        public Item EquippedItem { get; set; }
 
-        public AttributeComponent Attributes { get; private set; } = new AttributeComponent();
+        /// <summary>
+        /// Gets the hit chance multiplier thats used when this body part is attacked.
+        /// </summary>
+        public float HitChanceMultiplier { get; private set; }
 
-        public int Health { get; private set; }
-
-        public bool IsNeededToAttack { get; private set; }
-
-        public bool IsNeededToLive { get; private set; }
+        /// <summary>
+        /// Gets the damage multiplier thats used when this body part is attacked.
+        /// </summary>
+        public float DamageMultiplier { get; private set; }
 
         /*
         private Entity linkedEntity;
-        public Armor equippedArmor;
 
         // Für leichteren Zugriff auf die Variablen.
         private int healthPerLevel;
-        public string name;
         public int defaultHealth { get; private set; }
-        public int health { get; private set; }
-        public bool isNeededToAttack;
-        public bool isNeededToLive;
 
-        public BodyPart(Entity linkedEntity, string name, int health, int healthPerLevel,
-            Armor equippedArmor = null,
-            bool isNeededToAttack = false, bool isNeededToLive = false,
-            int damage = 0, float damageMultiplier = 0,
-            int armor = 0, float armorMultiplier = 0,
-            float hitChance = 0, float hitChanceMultiplier = 0,
-            float criticalHitChance = 0, float criticalHitChanceMultiplier = 0,
-            int criticalDamage = 0, float criticalDamageMultiplier = 0)
+        public BodyPart(Entity linkedEntity, int healthPerLevel,
+            Armor equippedArmor = null)
         {
             this.linkedEntity = linkedEntity;
             attributes = new AttributeComponent(
@@ -79,11 +68,6 @@
 
             health = Math.Max(Math.Min(health + value, defaultHealth), 0);
             return health - oldHealth;
-        }
-
-        public bool IsDead()
-        {
-            return health > 0;
         }
 
         // Rüstet einen neuen Gegenstand aus und gibt den alten Gegenstand der ausgerüstet war zurück.
