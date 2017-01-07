@@ -14,7 +14,7 @@
     }
 
     /// <summary>
-    /// Is used to modify attributes of a player. Every item status effect or trait can have a modifier.
+    /// Is used to modify attributes of a <see cref="Entities.Entity"/>. Every <see cref="Items.Item"/>, <see cref="StatusEffects.StatusEffect"/> or <see cref="Entitie"/> can have a modifier.
     /// </summary>
     /// <example>
     /// // Adding a flat amount to the damage attribute.
