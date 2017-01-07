@@ -76,9 +76,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Attributes\AttributeModifier.cs" />
-    <Compile Include="Classes\Combat\Paths\Path.cs" />
-    <Compile Include="Classes\Combat\Skills\Scum\Push.cs" />
-    <Compile Include="Classes\Combat\Skills\Skill.cs" />
+    <Compile Include="Classes\Paths\Path.cs" />
+    <Compile Include="Classes\Skills\Scum\Push.cs" />
+    <Compile Include="Classes\Skills\Skill.cs" />
+    <Compile Include="Classes\StatusEffects\StatusEffect.cs" />
+    <Compile Include="Classes\Conditions\ConnectedCondition.cs" />
+    <Compile Include="Classes\Conditions\TurnCondition.cs" />
+    <Compile Include="Classes\Conditions\ICondition.cs" />
+    <Compile Include="Classes\Conditions\ItemEquippedCondition.cs" />
     <Compile Include="Classes\Draw\Controls\Elements\DefaultAppearance\DefaultButton.cs" />
     <Compile Include="Classes\Draw\Controls\Elements\DefaultAppearance\DefaultDialogueBox.cs" />
     <Compile Include="Classes\Draw\Controls\Elements\DefaultAppearance\DefaultSelection.cs" />
@@ -124,7 +129,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Classes\Combat\Traits\" />
+    <Folder Include="Classes\Traits\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
