@@ -1,4 +1,7 @@
-﻿namespace Draw.Controls
+﻿// ToDo:
+// - If a items is selected but the max number of selected items is already reached, deselect the last selected item and select the new item.
+
+namespace Draw.Controls
 {
     using System;
     using System.Collections.Generic;
