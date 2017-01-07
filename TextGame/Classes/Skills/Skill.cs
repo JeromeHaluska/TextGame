@@ -1,4 +1,4 @@
-﻿namespace Game.Combat.Skills
+﻿namespace Game.Skills
 {
     public abstract class Skill
     {

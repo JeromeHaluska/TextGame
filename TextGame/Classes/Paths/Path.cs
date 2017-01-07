@@ -1,4 +1,4 @@
-﻿namespace Game.Combat.Paths
+﻿namespace Game.Paths
 {
     using System;
     using System.Collections.Generic;

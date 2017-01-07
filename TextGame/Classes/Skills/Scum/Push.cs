@@ -1,4 +1,4 @@
-﻿namespace Game.Combat.Skills
+﻿namespace Game.Skills
 {
     /// <summary>
     /// Pushes the enemy and tries to impair his balance.
