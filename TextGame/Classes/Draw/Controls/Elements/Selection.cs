@@ -24,7 +24,9 @@ namespace Draw.Controls
 
         private int _maxSelectedItems;
 
-        private int _selectedItems;
+        private int _selectedItemCount;
+
+        private List<string> _selectedItemList = new List<string>();
 
         public Selection(int x, int y, int fixedWidth = 0, int minSelectedItems = 1, int maxSelectedItems = 1)
         {
@@ -130,6 +132,17 @@ namespace Draw.Controls
         }
 
         /// <summary>
+        /// Returns all items that are currently selected.
+        /// </summary>
+        public string[] SelectedItems
+        {
+            get
+            {
+                return _selectedItemList.ToArray();
+            }
+        }
+
+        /// <summary>
         /// Gets the state of the selection. Returns true if the minimum and maximum selection requirement is fulfilled.
         /// </summary>
         public bool IsValid { get; private set; } = false;
@@ -143,15 +156,17 @@ namespace Draw.Controls
 
             // Subscribing to the button Click event.
             newButton.Click += (source, args) => {
-                if (!newButton.IsHighlighted && _selectedItems < MaxSelectedItems) {
-                    _selectedItems++;
+                if (!newButton.IsHighlighted && _selectedItemCount < MaxSelectedItems) {
+                    _selectedItemCount++;
+                    _selectedItemList.Add(newButton.Text);
                     newButton.IsHighlighted = true;
                 } else if (newButton.IsHighlighted) {
-                    _selectedItems--;
+                    _selectedItemCount--;
+                    _selectedItemList.Remove(newButton.Text);
                     newButton.IsHighlighted = false;
                 }
 
-                if (_selectedItems >= MinSelectedItems && _selectedItems <= MaxSelectedItems) {
+                if (_selectedItemCount >= MinSelectedItems && _selectedItemCount <= MaxSelectedItems) {
                     IsValid = true;
 
                     // Create a list with all selected Items.
