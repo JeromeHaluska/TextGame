@@ -10,8 +10,9 @@
         /// </summary>
         /// <param name="source">The entity that made the attack.</param>
         /// <param name="target">The entity that got hit.</param>
+        /// <param name="damagedBodyParts">Contains all body parts that took damage and the amount of damage taken.</param>
         /// <param name="damageDone">The total amount of damage done to the target.</param>
-        public delegate List<ColoredString> OnHitHandler(Entity source, Entity target, int damageDone);
+        public delegate ColoredString[] OnHitHandler(Entity source, Entity target, KeyValuePair<BodyPart, int>[] damagedBodyParts, int damageDone);
 
         private OnHitHandler _onHit;
 
@@ -26,8 +27,9 @@
         /// </summary>
         /// <param name="source">The entity that made the attack.</param>
         /// <param name="target">The entity that got hit.</param>
-        /// <param name="damageDone">The total amount of damage done to the target.</param>
-        public delegate List<ColoredString> OnDamageTakenHandler(Entity source, Entity target, int damageDone);
+        /// <param name="target">The entity that got hit.</param>
+        /// <param name="damagedBodyParts">Contains all body parts that took damage and the amount of damage taken.</param>
+        public delegate ColoredString[] OnDamageTakenHandler(Entity source, Entity target, KeyValuePair<BodyPart, int>[] damagedBodyParts, int damageDone);
 
         private OnDamageTakenHandler _onDamageTaken;
 
@@ -42,7 +44,7 @@
         /// </summary>
         /// <param name="source">The killer.</param>
         /// <param name="target">The entity that died.</param>
-        public delegate List<ColoredString> OnKillHandler(Entity source, Entity target);
+        public delegate ColoredString[] OnKillHandler(Entity source, Entity target);
 
         private OnKillHandler _onKill;
 
@@ -57,7 +59,7 @@
         /// </summary>
         /// <param name="source">The killer.</param>
         /// <param name="target">The entity that died.</param>
-        public delegate List<ColoredString> OnDeathHandler(Entity source, Entity target);
+        public delegate ColoredString[] OnDeathHandler(Entity source, Entity target);
 
         private OnDeathHandler _onDeath;
 
