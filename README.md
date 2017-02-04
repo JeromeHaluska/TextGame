@@ -8,7 +8,7 @@ Without this decision I wouldn't be able to make any progress, and the simple st
 
 #### Used Technologies
 * C#
-* (NLua] (https://github.com/NLua/NLua)
+* [NLua] (https://github.com/NLua/NLua)
 * [OpenTK](https://github.com/opentk/opentk)
 * [Sunshine Console](https://github.com/derrickcreamer/SunshineConsole)
 
