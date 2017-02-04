@@ -1,13 +1,14 @@
-# AsciiGame
+# TextGame
 
 #### Short Description
-I develop a fantasy rpg that is only using a simple terminal as graphical interface.
+I develop a fantasy rpg that is only using a simple terminal like graphical interface.
 This simple GUI is perfect for my project, because I don't want to spend too much time on making fancy graphics,
 and more time on implementing my ideas and (trying) to improve my coding skills.
 Without this decision I wouldn't be able to make any progress, and the simple style doesn't really bother me.
 
 #### Used Technologies
 * C#
+* (NLua] (https://github.com/NLua/NLua)
 * [OpenTK](https://github.com/opentk/opentk)
 * [Sunshine Console](https://github.com/derrickcreamer/SunshineConsole)
 
