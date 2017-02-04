@@ -4,7 +4,7 @@
 
     public class Armor : Item
     {
-        public Armor(string name, ItemRarity rarity, AttributeModifier modifier) : base(name, ItemType.Armor, rarity)
+        public Armor(string name, ItemRarity rarity, AttributeModifier modifier) : base(name, 1, ItemType.Armor, rarity)
         {
             Modifier = modifier;
         }

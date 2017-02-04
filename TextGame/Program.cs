@@ -1,4 +1,12 @@
-﻿namespace Game
+﻿// Ideas:
+// - Body Parts only determine hitchance, and have a damagemultiplier
+// - You get a message at the beginning of a fight if your enemy is way to strong
+// - To fight the first enemys you need to be very good prepared and buy items from the town.
+// - After your first fight with a weak boar you wake up in a tavern and you got help by a druid.
+// - PlayerEventComponent (OnSell, OnBuy, OnLoot, OnUse, OnEquip, OnLevelUp)
+// - ItemEventComponent (OnSell, OnUse)
+
+namespace Game
 {
     using System.Threading;
     using Draw;
@@ -14,16 +22,16 @@
             console.ActiveScene = new MainMenuScene();
 
             // Main game loop
-            try {
+            //try {
                 while (console.WindowUpdate()) {
                     Thread.Sleep(10);
                 }
-            } catch (Exception e) {
+            /*} catch (Exception e) {
                 console.ActiveScene = new ExceptionScene(e);
                 while (console.WindowUpdate()) {
                     Thread.Sleep(10);
                 }
-            }
+            }*/
         }
     }
 }

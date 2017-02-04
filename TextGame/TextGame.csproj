@@ -58,6 +58,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -76,7 +77,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Attributes\AttributeModifier.cs" />
+    <Compile Include="Classes\Conditions\NoCondition.cs" />
     <Compile Include="Classes\Paths\Path.cs" />
+    <Compile Include="Classes\Races\Human.cs" />
+    <Compile Include="Classes\Races\Race.cs" />
     <Compile Include="Classes\Skills\Scum\Push.cs" />
     <Compile Include="Classes\Skills\Skill.cs" />
     <Compile Include="Classes\StatusEffects\StatusEffect.cs" />
@@ -114,6 +118,8 @@
     <Compile Include="Classes\Entities\Components\AttributeComponent.cs" />
     <Compile Include="Classes\Entities\Components\BodyComponent.cs" />
     <Compile Include="Classes\Entities\Components\EntityEventComponent.cs" />
+    <Compile Include="Classes\StatusEffects\TraitStatusEffects\StatusEffectToughSkin.cs" />
+    <Compile Include="Classes\Traits\Trait.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -128,9 +134,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Classes\Traits\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

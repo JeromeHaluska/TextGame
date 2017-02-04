@@ -5,111 +5,154 @@
     using System.IO;
     using Newtonsoft.Json;
     using Skills;
+    using Newtonsoft.Json.Linq;
 
     public class Path
     {
-        public Path(string pathName)
+        static private Path[] _paths;
+
+        static public Path[] GetAllPaths()
         {
-            ParseJson(pathName);
+            if (_paths == null) {
+                var pathList = new List<Path>();
+
+                // Open the path data file and extract the raw JSON.
+                TextReader fileReader = File.OpenText(Game.GetApplicationPath() + @"\data\paths.txt");
+                var rawJson = fileReader.ReadToEnd();
+
+                // Convert the raw JSON into a dynamic array of path objects for easy access.
+                var serializer = new JsonSerializer();
+                dynamic pathDataArray = JArray.Parse(rawJson);
+
+                // Fill the pathList with Path objects.
+                foreach (dynamic pathData in pathDataArray) {
+                    pathList.Add(new Path(pathData));
+                }
+
+                _paths = pathList.ToArray();
+            }
+            return _paths;
+        }
+
+        static public Path GetPath(string pathName, int playerLevel)
+        {
+            foreach (Path path in _paths) {
+                if (path.GetName(playerLevel) == pathName) {
+                    return path;
+                }
+            }
+            return null;
         }
 
         /// <summary>
         /// The name of the path can change when the player level increases.
-        /// The current path name is the last string that is stored at an index that is below or equal to the player level.
         /// </summary>
-        protected string[] NameProgressionList { get; set; } = new string[100];
+        private KeyValuePair<int, string>[] _nameProgressionList { get; set; }
 
         /// <summary>
         /// The skills that are available from the start of the game.
         /// </summary>
-        protected List<Skill> StartingSkillList { get; set; } = new List<Skill>();
+        private Skill[] _startingSkillList { get; set; }
 
         /// <summary>
         /// The skills that become available when the player level increases.
-        /// All the skills which index in the array is lower or equal than the player level are useable.
+        /// All the skills which key is lower or equal than the player level are useable.
         /// </summary>
-        protected Skill[] SkillProgressionList { get; set; } = new Skill[100];
+        private KeyValuePair<int, Skill>[] _skillProgressionList { get; set; }
 
         /// <summary>
-        /// Returns all skills that are currently to the player available.
+        /// Creates a Path object with data from a JSON object
+        /// </summary>
+        /// <param name="pathData">A JSON object</param>
+        public Path(dynamic pathData)
+        {
+            // Fill the description.
+            var descriptionList = new List<string>();
+
+            foreach(string line in pathData.description) {
+                descriptionList.Add(line);
+            }
+            Description = descriptionList.ToArray();
+
+            // Fill the name progression list.
+            var nameProgressionList = new List<KeyValuePair<int, string>>();
+
+            foreach (dynamic nameProgressionData in pathData.nameProgressionList) {
+                nameProgressionList.Add(new KeyValuePair<int, string>((int)nameProgressionData.level.Value, nameProgressionData.name.Value));
+            }
+            _nameProgressionList = nameProgressionList.ToArray();
+
+            // Fill the starting skill list.
+            var startingSkillList = new List<Skill>();
+
+            foreach (string skillName in pathData.startingSkillList) {
+                startingSkillList.Add(Skill.GetSkillInstance(skillName));
+            }
+            _startingSkillList = startingSkillList.ToArray();
+
+            // Fill the skill progression list.
+            var skillProgressionList = new List<KeyValuePair<int, Skill>>();
+
+            foreach (dynamic skillProgressionData in pathData.skillProgressionList) {
+                var skillInstance = Skill.GetSkillInstance(skillProgressionData.name.Value);
+
+                skillProgressionList.Add(new KeyValuePair<int, Skill>((int)skillProgressionData.level.Value, skillInstance));
+            }
+            _skillProgressionList = skillProgressionList.ToArray();
+        }
+
+        public string[] Description;
+
+        public string GetName(int playerLevel)
+        {
+            foreach (KeyValuePair<int, string> levelNamePair in _nameProgressionList) {
+                if (playerLevel >= levelNamePair.Key) {
+                    return levelNamePair.Value;
+                }
+            }
+            return "unknown";
+        }
+
+        /// <summary>
+        /// Returns all skills that are currently available to the player.
         /// </summary>
         /// <param name="playerLevel">Current player level</param>
         /// <returns></returns>
-        public List<Skill> GetUsableSkills(int playerLevel)
+        public Skill[] GetUsableSkills(int playerLevel)
         {
             List<Skill> useableSkillList = new List<Skill>();
-            if (StartingSkillList != null) {
-                foreach (Skill skill in StartingSkillList) {
-                    useableSkillList.Add(skill);
+            
+            foreach (Skill skill in _startingSkillList) {
+                useableSkillList.Add(skill);
+            }
+
+            // Add all skills form the skill progression list to the useable skill list whose level requirement is met.
+            foreach (KeyValuePair<int, Skill> requirementSkillPair in _skillProgressionList) {
+                if (playerLevel >= requirementSkillPair.Key) {
+                    useableSkillList.Add(requirementSkillPair.Value);
                 }
             }
-            for (int cnt = 0; cnt < Math.Min(playerLevel, 100); cnt++) {
-                if (SkillProgressionList[cnt] != null) {
-                    useableSkillList.Add(SkillProgressionList[cnt]);
-                }
-            }
-            return useableSkillList;
+
+            return useableSkillList.ToArray();
         }
 
         /// <summary>
         /// Return all skills that become available between the old and new player level.
         /// </summary>
-        /// <param name="oldPlayerLevel">Old player level</param>
-        /// <param name="newPlayerLevel">New player level</param>
-        /// <returns></returns>
-        public List<Skill> GetNewSkills(int oldPlayerLevel, int newPlayerLevel)
+        /// <returns>A skill array</returns>
+        public Skill[] GetNewSkills(int oldPlayerLevel, int newPlayerLevel)
         {
             List<Skill> newSkillList = new List<Skill>();
-            for (int cnt = oldPlayerLevel - 1; cnt < Math.Min(newPlayerLevel, 100); cnt++) {
-                if (SkillProgressionList[cnt] != null) {
-                    newSkillList.Add(SkillProgressionList[cnt]);
+
+            // Check the skill progression list for skills that level requirement wasn't met with the old level.
+            foreach (KeyValuePair<int, Skill> requirementSkillPair in _skillProgressionList) {
+
+                if (newPlayerLevel >= requirementSkillPair.Key && oldPlayerLevel < requirementSkillPair.Key) {
+                    newSkillList.Add(requirementSkillPair.Value);
                 }
             }
-            return newSkillList;
-        }
 
-        /// <summary>
-        /// Parses the path data from the path file.
-        /// </summary>
-        /// <param name="pathName">The path name</param>
-        private void ParseJson(string pathName)
-        {
-            // Opens the path data file.
-            TextReader fileReader = File.OpenText(Game.GetApplicationPath() + @"\data\paths\" + pathName + ".txt");
-
-            // Initialises a json reader to read from the path data file.
-            var jsonReader = new JsonTextReader(fileReader);
-
-            // Parse the json data.
-            var serializer = new JsonSerializer();
-            var jsonObject = serializer.Deserialize<Dictionary<string, Dictionary<int, string>>>(jsonReader);
-
-            foreach (KeyValuePair<string, Dictionary<int, string>> propertyDictionaryPair in jsonObject) {
-                var curObjectName = propertyDictionaryPair.Key;
-
-                foreach (KeyValuePair<int, string> propertyValuePair in propertyDictionaryPair.Value) {
-                    Type skillType;
-                    Skill skillInstance;
-
-                    switch (curObjectName) {
-                        case "NameProgressionList":
-                        NameProgressionList[propertyValuePair.Key] = propertyValuePair.Value;
-                        break;
-                        case "StartingSkillList":
-                        skillType = Type.GetType("Game.Skills." + propertyValuePair.Value);
-                        skillInstance = (Skill)Activator.CreateInstance(skillType);
-
-                        StartingSkillList.Add(skillInstance);
-                        break;
-                        case "SkillProgressionList":
-                        skillType = Type.GetType("Game.Skills." + propertyValuePair.Value);
-                        skillInstance = (Skill)Activator.CreateInstance(skillType);
-
-                        SkillProgressionList[propertyValuePair.Key] = skillInstance;
-                        break;
-                    }
-                }
-            }
+            return newSkillList.ToArray();
         }
     }
 }

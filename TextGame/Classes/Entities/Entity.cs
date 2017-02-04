@@ -7,13 +7,13 @@ namespace Game.Entities
 
     public abstract class Entity
     {
-        public Entity(string name)
+        public Entity(string name, BodyPart[] bodyParts)
         {
-            Body = new BodyComponent();
+            Body = new BodyComponent(bodyParts);
 
             Attributes.LinkModifier(BaseAttributes);
-            BaseAttributes.Add.Add(Attribute.HitChance, 90);
-            BaseAttributes.Add.Add(Attribute.CriticalHitChance, 5);
+            BaseAttributes.Add.Add(Attribute.HitChance, Game.DefaultHitChance);
+            BaseAttributes.Add.Add(Attribute.CriticalHitChance, Game.DefaultCriticalHitChance);
         }
 
         public BodyComponent Body { get; protected set; }
