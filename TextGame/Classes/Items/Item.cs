@@ -53,11 +53,16 @@
             { "godly", ItemRarity.Godly }
         };
 
-        public Item(string name, ItemType type, ItemRarity rarity)
+        private int _maxQuantity;
+
+        private int _quantity = 1;
+
+        public Item(string name, int maxQuantity, ItemType type, ItemRarity rarity)
         {
             Name = name;
             Type = type;
             Rarity = rarity;
+            _maxQuantity = maxQuantity;
         }
 
         public string Name;
