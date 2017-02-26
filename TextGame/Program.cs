@@ -2,9 +2,10 @@
 // - Body Parts only determine hitchance, and have a damagemultiplier
 // - You get a message at the beginning of a fight if your enemy is way to strong
 // - To fight the first enemys you need to be very good prepared and buy items from the town.
-// - After your first fight with a weak boar you wake up in a tavern and you got help by a druid.
+// - After your first fight with a weak boar you wake up in a tavern you got help.
 // - PlayerEventComponent (OnSell, OnBuy, OnLoot, OnUse, OnEquip, OnLevelUp)
 // - ItemEventComponent (OnSell, OnUse)
+// - Social skills are represented in lower numbers (1, 2, 3). Some interactions require those skills
 
 namespace Game
 {
