@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using NLua;
 
-    class LuaHandler
+    public class LuaHandler : ICodeHandler
     {
         private Lua _state = new Lua();
 
@@ -15,6 +15,12 @@
 
             // Enable import function inside lua scripts.
             _state.LoadCLRPackage();
+
+            // Build sandbox to prevent abuse
+            _state.DoString(@"
+                import('System');
+                import = function() end;
+            ");
 
             _state.DoFile(fullFilePath);
         }
@@ -37,6 +43,12 @@
             }
         }
 
+        /// <summary>
+        /// Calls a function from the lua script.
+        /// </summary>
+        /// <param name="functionName">The name of the function</param>
+        /// <param name="arguments">Arguments that are getting passed to the function</param>
+        /// <returns>The value returned by the function</returns>
         public dynamic Call(string functionName, params object[] arguments)
         {
             LuaFunction function;
