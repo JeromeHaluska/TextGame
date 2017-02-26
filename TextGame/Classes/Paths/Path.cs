@@ -1,6 +1,5 @@
 ﻿namespace Game.Paths
 {
-    using System;
     using System.Collections.Generic;
     using System.IO;
     using Newtonsoft.Json;
@@ -64,7 +63,7 @@
         /// Creates a Path object with data from a JSON object
         /// </summary>
         /// <param name="pathData">A JSON object</param>
-        public Path(dynamic pathData)
+        private Path(dynamic pathData)
         {
             // Fill the description.
             var descriptionList = new List<string>();
@@ -78,7 +77,9 @@
             var nameProgressionList = new List<KeyValuePair<int, string>>();
 
             foreach (dynamic nameProgressionData in pathData.nameProgressionList) {
-                nameProgressionList.Add(new KeyValuePair<int, string>((int)nameProgressionData.level.Value, nameProgressionData.name.Value));
+                var nameLevelPair = new KeyValuePair<int, string>((int)nameProgressionData.level.Value, nameProgressionData.name.Value);
+
+                nameProgressionList.Add(nameLevelPair);
             }
             _nameProgressionList = nameProgressionList.ToArray();
 
