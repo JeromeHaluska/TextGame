@@ -1,4 +1,5 @@
-﻿namespace Game.Items
+﻿/*
+namespace Game.Items
 {
     using Attributes;
 
@@ -12,3 +13,4 @@
         public AttributeModifier Modifier { get; private set; }
     }
 }
+*/

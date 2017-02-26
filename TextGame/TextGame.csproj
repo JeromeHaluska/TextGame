@@ -86,6 +86,8 @@
   <ItemGroup>
     <Compile Include="Classes\Attributes\AttributeModifier.cs" />
     <Compile Include="Classes\Conditions\NoCondition.cs" />
+    <Compile Include="Classes\Items\ItemEventHandler.cs" />
+    <Compile Include="Classes\Lua\ICodeHandler.cs" />
     <Compile Include="Classes\Lua\LuaHandler.cs" />
     <Compile Include="Classes\Paths\Path.cs" />
     <Compile Include="Classes\Races\Human.cs" />
