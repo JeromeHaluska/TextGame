@@ -1,5 +1,7 @@
 ﻿namespace Game.Items
 {
+    using System;
+    using System.Linq;
     using System.IO;
     using System.Collections.Generic;
     using Draw.Utility;
@@ -29,7 +31,7 @@
 
     public class Item
     {
-        static private Dictionary<ItemType, Item[]> _items = new Dictionary<ItemType, Item[]>();
+        static private List<Item> _items = new List<Item>();
 
         static public Color4[] ItemRarityColors = new Color4[] {
             new Color4(1, 1, 1, 1),
@@ -67,30 +69,30 @@
             { "godly", ItemRarity.Godly }
         };
 
-        static public Item[] GetItems(ItemType itemType)
+        /// <param name="query">A lambda expression that describes what kind of items you want to get returned.</param>
+        /// <returns>Returns specific items from the list of all available items.</returns>
+        static public IEnumerable<Item> GetItems(Func<Item, bool> query)
         {
-            if (_items.ContainsKey(itemType)) {
-                return _items[itemType];
+            if (_items.Count > 0) {
+                return _items.Where(query);
             }
 
-            var itemList = new List<Item>();
+            // Open the every item type file and extract the raw JSON.
+            foreach (ItemType itemType in Enum.GetValues(typeof(ItemType))) {
+                TextReader fileReader = File.OpenText(Game.GetApplicationPath() + @"\data\items\" + ItemTypeToString[itemType] + ".json");
+                var rawJson = fileReader.ReadToEnd();
 
-            // Open the item type file and extract the raw JSON.
-            TextReader fileReader = File.OpenText(Game.GetApplicationPath() + @"\data\items\" + ItemTypeToString[itemType] + ".json");
-            var rawJson = fileReader.ReadToEnd();
+                // Convert the raw JSON into a dynamic array of item objects for easy access.
+                var serializer = new JsonSerializer();
+                var itemDataArray = JArray.Parse(rawJson);
 
-            // Convert the raw JSON into a dynamic array of item objects for easy access.
-            var serializer = new JsonSerializer();
-            dynamic itemDataArray = JArray.Parse(rawJson);
-
-            // Fill the itemList with Item objects.
-            foreach (dynamic itemData in itemDataArray) {
-                itemList.Add(new Item(itemData));
+                // Fill the itemList with Item objects.
+                foreach (dynamic itemData in itemDataArray) {
+                    _items.Add(new Item(itemData));
+                }
             }
-            
-            _items.Add(itemType, itemList.ToArray());
 
-            return _items[itemType];
+            return _items.Where(query);
         }
 
         private string _name;
@@ -98,6 +100,8 @@
         private ItemType _type;
 
         private ItemRarity _rarity;
+
+        private int _value;
 
         private int _maxQuantity;
 
@@ -107,11 +111,12 @@
 
         private Item(dynamic itemData)
         {
-            _name = itemData.name;
-            _type = StringToItemType[itemData.type.Value];
-            _rarity = StringToItemRarity[itemData.rarity.Value];
-            _maxQuantity = itemData.maxQuantity;
-            _event = new ItemEventHandler(itemData.scriptPath.Value);
+            _name = itemData.name != null ? itemData.name : "Unkown";
+            _type = itemData.type != null ? StringToItemType[itemData.type.Value] : ItemType.Other;
+            _rarity = itemData.rarity != null ? StringToItemRarity[itemData.rarity.Value] : ItemRarity.Common;
+            _value = itemData.value != null ? itemData.value : 0;
+            _maxQuantity = itemData.maxQuantity != null ? itemData.maxQuantity : 1;
+            _event = itemData.scriptPath != null ? new ItemEventHandler(itemData.scriptPath.Value) : null;
         }
 
         public string Name
@@ -129,6 +134,12 @@
         {
             get { return _rarity; }
             set { _rarity = value; }
+        }
+
+        public int Value
+        {
+            get { return _value; }
+            set { _value = value; }
         }
 
         public ItemEventHandler Event
