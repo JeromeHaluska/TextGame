@@ -71,28 +71,27 @@
 
         /// <param name="query">A lambda expression that describes what kind of items you want to get returned.</param>
         /// <returns>Returns specific items from the list of all available items.</returns>
-        static public IEnumerable<Item> GetItems(Func<Item, bool> query)
+        static public IEnumerable<Item> GetItems(Func<Item, bool> query = null)
         {
-            if (_items.Count > 0) {
-                return _items.Where(query);
-            }
+            // Load items
+            if (_items.Count == 0) {
+                // Open the every item type file and extract the raw JSON.
+                foreach (ItemType itemType in Enum.GetValues(typeof(ItemType))) {
+                    TextReader fileReader = File.OpenText(Game.GetApplicationPath() + @"\data\items\" + ItemTypeToString[itemType] + ".json");
+                    var rawJson = fileReader.ReadToEnd();
 
-            // Open the every item type file and extract the raw JSON.
-            foreach (ItemType itemType in Enum.GetValues(typeof(ItemType))) {
-                TextReader fileReader = File.OpenText(Game.GetApplicationPath() + @"\data\items\" + ItemTypeToString[itemType] + ".json");
-                var rawJson = fileReader.ReadToEnd();
+                    // Convert the raw JSON into a dynamic array of item objects for easy access.
+                    var serializer = new JsonSerializer();
+                    var itemObjectArray = JArray.Parse(rawJson);
 
-                // Convert the raw JSON into a dynamic array of item objects for easy access.
-                var serializer = new JsonSerializer();
-                var itemDataArray = JArray.Parse(rawJson);
-
-                // Fill the itemList with Item objects.
-                foreach (dynamic itemData in itemDataArray) {
-                    _items.Add(new Item(itemData));
+                    // Fill the itemList with Item objects.
+                    foreach (JObject itemObject in itemObjectArray) {
+                        _items.Add(new Item(itemObject));
+                    }
                 }
             }
 
-            return _items.Where(query);
+            return query != null ? _items.Where(query) : _items;
         }
 
         private string _name;
@@ -109,14 +108,14 @@
 
         private ItemEventHandler _event;
 
-        private Item(dynamic itemData)
+        private Item(JObject itemObject)
         {
-            _name = itemData.name != null ? itemData.name : "Unkown";
-            _type = itemData.type != null ? StringToItemType[itemData.type.Value] : ItemType.Other;
-            _rarity = itemData.rarity != null ? StringToItemRarity[itemData.rarity.Value] : ItemRarity.Common;
-            _value = itemData.value != null ? itemData.value : 0;
-            _maxQuantity = itemData.maxQuantity != null ? itemData.maxQuantity : 1;
-            _event = itemData.scriptPath != null ? new ItemEventHandler(itemData.scriptPath.Value) : null;
+            _name = itemObject["name"].Value<string>() ?? "Unkown";
+            _type = itemObject["type"] != null ? StringToItemType[itemObject["type"].Value<string>()] : ItemType.Other;
+            _rarity = itemObject["rarity"] != null ? StringToItemRarity[itemObject["rarity"].Value<string>()] : ItemRarity.Common;
+            _value = itemObject["value"] != null ? itemObject["value"].Value<int>() : 0;
+            _maxQuantity = itemObject["maxQuantity"] != null ? itemObject["maxQuantity"].Value<int>() : 1;
+            _event = itemObject["scriptPath"] != null ? new ItemEventHandler(itemObject["scriptPath"].Value<string>()) : null;
         }
 
         public string Name
