@@ -7,7 +7,7 @@
 
     public class Player : Entity
     {
-        public Player(string name, Race race) : base(name, race.BodyParts)
+        public Player(string name, Race race) : base(name, EntityType.Humanoid, race.BodyParts)
         {
             Game.Player = this;
         }

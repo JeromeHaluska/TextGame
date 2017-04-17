@@ -1,14 +1,23 @@
-﻿
-
-namespace Game.Entities
+﻿namespace Game.Entities
 {
     using Attributes;
     using Components;
 
+    public enum EntityType
+    {
+        Humanoid,
+        Beast,
+        Dragon,
+        Elemental,
+        Undead,
+        Demon
+    }
+
     public abstract class Entity
     {
-        public Entity(string name, BodyPart[] bodyParts)
+        public Entity(string name, EntityType type, BodyPart[] bodyParts)
         {
+            Type = type;
             Body = new BodyComponent(bodyParts);
 
             Attributes.LinkModifier(BaseAttributes);
@@ -17,6 +26,8 @@ namespace Game.Entities
         }
 
         public BodyComponent Body { get; protected set; }
+
+        public EntityType Type { get; protected set; }
 
         public AttributeModifier BaseAttributes { get; protected set; } = new AttributeModifier();
 
