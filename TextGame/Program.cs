@@ -6,6 +6,8 @@
 // - PlayerEventComponent (OnSell, OnBuy, OnLoot, OnUse, OnEquip, OnLevelUp)
 // - ItemEventComponent (OnSell, OnUse)
 // - Social skills are represented in lower numbers (1, 2, 3). Some interactions require those skills
+// - Enemy Types (Beasts, Demons, ...) and Potions to Fight against them.
+// - Elemental Damage Types
 
 namespace Game
 {
