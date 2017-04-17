@@ -32,6 +32,8 @@
 
             button4.TextColor = Color4.LightGray;
             button4.BackgroundColor = Color4.Crimson;
+            button4.HoverTextColor = Colors.Lighten(Color4.LightGray);
+            button4.HoverBackgroundColor = Colors.Lighten(Color4.Crimson);
             button4.FixedWidth = buttonFixedWidth;
             button4.Click += (source, args) => {
                 Console.CloseWindow = true;
