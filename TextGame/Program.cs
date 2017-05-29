@@ -8,6 +8,10 @@
 // - Social skills are represented in lower numbers (1, 2, 3). Some interactions require those skills
 // - Enemy Types (Beasts, Demons, ...) and Potions to Fight against them.
 // - Elemental Damage Types
+// - Chance of consumption of items failing (Different inside and outside combat smt. like choking)
+// - Unlockable classes? With unique requirements like help a summoner to play a summoner
+// - Item categories for simplified crafting (for example Meat as categorie of Crocodile Meat and Deer Meat)
+// - Barbarian class with skills that are very strong but debuffs the own character for one or more rounds
 
 namespace Game
 {
